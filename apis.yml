@@ -4,8 +4,7 @@ url: >-
 apis:
   - aid: volkswagen:volkswagen
     name: Volkswagen
-    tags:
-      - API
+    tags: []
     humanURL: https://productdata.volkswagenag.com
     properties:
       - url: https://productdata.volkswagenag.com/swagger-doc.html
@@ -18,9 +17,9 @@ apis:
       Republic: CZ:.
 name: Volkswagen
 tags:
-  - Vehicles
   - Automobiles
   - Cars
+  - Vehicles
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
