@@ -1,0 +1,632 @@
+openapi: 3.1.0
+info:
+  title: Volkswagen OKAPI - Open Konfigurator API
+  description: >-
+    The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG
+    product data, enabling developers to browse vehicle catalogs, configure cars
+    iteratively, validate buildability, retrieve WLTP emissions data, get configuration
+    images, and obtain pricing and technical order information. Supports all VW Group
+    brands across global markets.
+  version: 'v3'
+  contact:
+    name: Volkswagen OKAPI Developer Portal
+    url: https://okapi-ddp.productdata.volkswagenag.com/dev-portal/
+  license:
+    name: Volkswagen OKAPI Terms and Conditions
+    url: https://productdata.volkswagenag.com/condition-of-use.html
+servers:
+  - url: https://productdata.volkswagenag.com/v3
+    description: Volkswagen OKAPI API v3
+security:
+  - BearerAuth: []
+paths:
+  /countries:
+    get:
+      operationId: listCountries
+      summary: List Available Countries
+      description: >-
+        Returns all countries for which OKAPI offers vehicle configuration support.
+        Each country has an ISO 3166-2 market identifier used in subsequent catalog calls.
+      tags:
+        - Catalog
+      responses:
+        '200':
+          description: List of supported countries with their market identifiers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /catalog/{countryCode}/brands:
+    get:
+      operationId: listBrandsByCountry
+      summary: List Brands By Country
+      description: >-
+        Returns all VW Group brands available in the specified country market.
+      tags:
+        - Catalog
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      responses:
+        '200':
+          description: List of brands available in the country.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /catalog/{countryCode}/brands/{brandId}/models:
+    get:
+      operationId: listModelsByBrand
+      summary: List Models By Brand
+      description: >-
+        Returns all vehicle models available for a specific brand in a country.
+      tags:
+        - Catalog
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+        - $ref: '#/components/parameters/brandId'
+      responses:
+        '200':
+          description: List of models for the brand in the country.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /catalog/{countryCode}/models/{modelId}/types:
+    get:
+      operationId: listTypesByModel
+      summary: List Types By Model
+      description: >-
+        Returns all vehicle types (trim levels, engine variants) for a specific model.
+      tags:
+        - Catalog
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+        - $ref: '#/components/parameters/modelId'
+      responses:
+        '200':
+          description: List of vehicle types for the model.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TypeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /catalog/{countryCode}/types/{typeId}/options:
+    get:
+      operationId: listOptionsByType
+      summary: List Options By Type
+      description: >-
+        Returns all configurable options for a vehicle type, including exterior colors,
+        interior colors, wheels, radio, packages, and service guarantees.
+      tags:
+        - Catalog
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+        - $ref: '#/components/parameters/typeId'
+      responses:
+        '200':
+          description: Available options for the vehicle type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /operation/{countryCode}/check:
+    post:
+      operationId: checkBuildability
+      summary: Check Configuration Buildability
+      description: >-
+        Validates whether a given set of selected options forms a buildable vehicle
+        configuration. Returns conflict information if options are incompatible.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Buildability check result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildabilityResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+  /operation/{countryCode}/recover:
+    post:
+      operationId: recoverConfiguration
+      summary: Recover Buildable Configuration
+      description: >-
+        Given an unbuildable configuration, returns the nearest valid buildable
+        configuration by resolving conflicts between selected options.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Recovered buildable configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/configure:
+    post:
+      operationId: getConfigurationOptions
+      summary: Get Configuration Options
+      description: >-
+        Returns available options and choices for the current vehicle configuration,
+        showing which options are selectable, unavailable, or required given current selections.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Available configuration choices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationOptions'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/resolve:
+    post:
+      operationId: resolveConfiguration
+      summary: Resolve Configuration
+      description: >-
+        Completes a partial configuration by resolving ambiguities and returning
+        the fully distinct configuration with all options specified.
+      tags:
+        - Configuration
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Fully resolved configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/wltp:
+    post:
+      operationId: getWltpData
+      summary: Get WLTP Emissions Data
+      description: >-
+        Retrieves WLTP (Worldwide Harmonised Light Vehicles Test Procedure) fuel
+        consumption and CO2 emissions data for a vehicle configuration.
+      tags:
+        - Information
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: WLTP emissions and fuel consumption data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WltpData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/images:
+    post:
+      operationId: getConfigurationImages
+      summary: Get Configuration Images
+      description: >-
+        Returns URLs for vehicle images that correspond to the specified configuration,
+        showing the vehicle with the selected exterior color, wheels, and other visual options.
+      tags:
+        - Information
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Image URLs for the configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/order:
+    post:
+      operationId: getOrderInformation
+      summary: Get Order Information
+      description: >-
+        Returns comprehensive order information for a configuration: current options,
+        price, standard equipment list, and full technical specifications.
+      tags:
+        - Information
+      parameters:
+        - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Order details including price and technical information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer token obtained by requesting client credentials from the
+        Volkswagen OKAPI Developer Portal.
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
+    brandId:
+      name: brandId
+      in: path
+      required: true
+      description: Brand UUID identifier.
+      schema:
+        type: string
+    modelId:
+      name: modelId
+      in: path
+      required: true
+      description: Model UUID identifier.
+      schema:
+        type: string
+    typeId:
+      name: typeId
+      in: path
+      required: true
+      description: Vehicle type UUID identifier.
+      schema:
+        type: string
+  schemas:
+    CountryList:
+      type: object
+      properties:
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+    Country:
+      type: object
+      properties:
+        code:
+          type: string
+          description: ISO 3166-2 country/market code.
+          example: DE
+        name:
+          type: string
+          description: Country display name.
+    BrandList:
+      type: object
+      properties:
+        brands:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
+    Brand:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Brand UUID.
+        name:
+          type: string
+          description: Brand name (e.g. Volkswagen, Audi, SEAT, Skoda, CUPRA).
+    ModelList:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+    Model:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Model UUID.
+        name:
+          type: string
+          description: Model name (e.g. Golf, Passat, Tiguan).
+        year:
+          type: integer
+          description: Model year.
+    TypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleType'
+    VehicleType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Vehicle type UUID.
+        name:
+          type: string
+          description: Type name including engine and trim designation.
+        basePrice:
+          $ref: '#/components/schemas/Price'
+    OptionList:
+      type: object
+      properties:
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    Option:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Option UUID.
+        name:
+          type: string
+          description: Option display name.
+        category:
+          type: string
+          enum:
+            - exterior-color
+            - interior
+            - wheels
+            - radio
+            - packages
+            - service
+          description: Option category.
+        price:
+          $ref: '#/components/schemas/Price'
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
+    BuildabilityResult:
+      type: object
+      properties:
+        buildable:
+          type: boolean
+          description: Whether the configuration is buildable.
+        conflicts:
+          type: array
+          items:
+            type: object
+            properties:
+              optionId:
+                type: string
+              reason:
+                type: string
+    ConfigurationResult:
+      type: object
+      properties:
+        configId:
+          type: string
+          description: Session ID for continuing this configuration.
+        typeId:
+          type: string
+        selectedOptions:
+          type: array
+          items:
+            type: string
+        buildable:
+          type: boolean
+    ConfigurationOptions:
+      type: object
+      properties:
+        available:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs currently selectable.
+        unavailable:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs not selectable with current selections.
+        required:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs required given current selections.
+    WltpData:
+      type: object
+      properties:
+        fuelConsumption:
+          type: object
+          properties:
+            combined:
+              type: number
+              description: Combined fuel consumption in l/100km.
+            urban:
+              type: number
+            extraUrban:
+              type: number
+        co2Emissions:
+          type: object
+          properties:
+            combined:
+              type: number
+              description: Combined CO2 emissions in g/km.
+        energyEfficiencyClass:
+          type: string
+          description: EU energy efficiency label (A-G).
+    ImageData:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: URL of the vehicle image.
+              view:
+                type: string
+                enum:
+                  - exterior-front
+                  - exterior-rear
+                  - exterior-side
+                  - interior
+                description: Camera viewpoint.
+              width:
+                type: integer
+              height:
+                type: integer
+    OrderData:
+      type: object
+      properties:
+        configId:
+          type: string
+        typeId:
+          type: string
+        selectedOptions:
+          type: array
+          items:
+            type: string
+        totalPrice:
+          $ref: '#/components/schemas/Price'
+        standardEquipment:
+          type: array
+          items:
+            type: string
+          description: Names of standard equipment included.
+        technicalData:
+          type: object
+          description: Full technical specification data.
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    NotAcceptable:
+      description: Configuration has unresolvable conflicts (HTTP 406).
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    TooManyRequests:
+      description: Request rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+tags:
+  - name: Catalog
+    description: Browse vehicle catalog — countries, brands, models, types, and options.
+  - name: Configuration
+    description: Configure vehicles — check buildability, recover, and resolve configurations.
+  - name: Information
+    description: Retrieve vehicle information — WLTP emissions, images, and order data.

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://productdata.volkswagenag.com/schemas/vehicle-configuration",
+  "title": "Volkswagen Vehicle Configuration",
+  "description": "A vehicle configuration representing a specific combination of type (trim/engine variant) and selected options in a country market.",
+  "type": "object",
+  "properties": {
+    "typeId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID of the base vehicle type (trim level and engine variant)."
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "ISO 3166-2 market identifier where this configuration applies.",
+      "example": "DE"
+    },
+    "configId": {
+      "type": "string",
+      "description": "Optional session identifier for resuming a saved configuration."
+    },
+    "selectedOptions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "UUIDs of currently selected configuration options (colors, wheels, packages, etc.)."
+    },
+    "buildable": {
+      "type": "boolean",
+      "description": "Whether this combination of options is a buildable vehicle."
+    },
+    "totalPrice": {
+      "$ref": "#/$defs/Price"
+    }
+  },
+  "required": ["typeId", "countryCode"],
+  "$defs": {
+    "Price": {
+      "type": "object",
+      "description": "Price in a specific currency.",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "Price value."
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 currency code.",
+          "example": "EUR"
+        }
+      }
+    },
+    "VehicleType": {
+      "type": "object",
+      "description": "A specific trim/engine variant of a vehicle model.",
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "name": {"type": "string", "description": "Type display name."},
+        "basePrice": {"$ref": "#/$defs/Price"}
+      }
+    },
+    "Option": {
+      "type": "object",
+      "description": "A configurable option for a vehicle type.",
+      "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "name": {"type": "string", "description": "Option display name."},
+        "category": {
+          "type": "string",
+          "enum": ["exterior-color", "interior", "wheels", "radio", "packages", "service"],
+          "description": "Option category."
+        },
+        "price": {"$ref": "#/$defs/Price"}
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "title": "Volkswagen Vehicle Configuration Structure",
+  "description": "Field-level documentation for the VW OKAPI vehicle configuration model.",
+  "type": "object",
+  "fields": [
+    {
+      "name": "typeId",
+      "type": "string (UUID)",
+      "required": true,
+      "description": "Base vehicle type UUID identifying the trim level and engine variant."
+    },
+    {
+      "name": "countryCode",
+      "type": "string",
+      "required": true,
+      "description": "ISO 3166-2 market code (AT, DE, GB, US, etc.)."
+    },
+    {
+      "name": "configId",
+      "type": "string",
+      "required": false,
+      "description": "Session ID for resuming a saved in-progress configuration."
+    },
+    {
+      "name": "selectedOptions",
+      "type": "array<string (UUID)>",
+      "required": false,
+      "description": "UUIDs of selected options: exterior color, interior, wheels, radio, packages."
+    },
+    {
+      "name": "buildable",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether the selected combination is buildable."
+    },
+    {
+      "name": "totalPrice",
+      "type": "Price",
+      "required": false,
+      "description": "Total configuration price.",
+      "fields": [
+        {"name": "amount", "type": "number", "description": "Price value."},
+        {"name": "currency", "type": "string", "description": "ISO 4217 code (EUR, GBP, etc.)."}
+      ]
+    },
+    {
+      "name": "conflicts",
+      "type": "array<Conflict>",
+      "required": false,
+      "description": "List of option conflicts if configuration is not buildable.",
+      "fields": [
+        {"name": "optionId", "type": "string", "description": "UUID of the conflicting option."},
+        {"name": "reason", "type": "string", "description": "Explanation of the conflict."}
+      ]
+    }
+  ]
+}

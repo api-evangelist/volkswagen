@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://productdata.volkswagenag.com/v3/operation/DE/check",
+    "headers": {
+      "Authorization": "Bearer <access-token>",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "typeId": "d3f207e5-18d8-5bd2-a5fa-a1acc05629fa",
+      "selectedOptions": [
+        "C3Z7-exterior-color-reflex-silver",
+        "FK1A-interior-black-leather",
+        "5G2-18inch-alloys",
+        "DAB-radio"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "buildable": true,
+      "conflicts": []
+    }
+  }
+}

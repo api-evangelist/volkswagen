@@ -1,0 +1,104 @@
+vocabulary:
+  name: Volkswagen OKAPI Vocabulary
+  description: >-
+    Domain vocabulary for the Volkswagen OKAPI (Open Konfigurator API) platform,
+    covering automotive configuration concepts, market structures, and emissions terminology.
+  version: '2026-05-03'
+  terms:
+    - term: OKAPI
+      definition: >-
+        Open Konfigurator API — Volkswagen AG's product data access platform
+        providing programmatic access to vehicle catalog data, configuration
+        logic, and order information across global markets.
+      tags:
+        - Platform
+        - Core Concept
+
+    - term: Vehicle Type
+      definition: >-
+        A specific trim level and engine variant combination within a model line.
+        In OKAPI, a type is the base configurable unit identified by a UUID.
+        For example, a "Golf 8 1.5 TSI Life DSG" would be a distinct type.
+      tags:
+        - Catalog
+        - Core Concept
+
+    - term: Buildability
+      definition: >-
+        A vehicle configuration is buildable when all selected options are
+        mutually compatible and the combination can actually be manufactured.
+        OKAPI's /check endpoint validates this.
+      tags:
+        - Configuration
+
+    - term: Configuration Session
+      definition: >-
+        A stateful configuration identified by a configId, allowing a user to
+        start configuring a vehicle, save progress, and resume later. The configId
+        is returned by configuration operations and passed in subsequent requests.
+      tags:
+        - Configuration
+
+    - term: WLTP
+      definition: >-
+        Worldwide Harmonised Light Vehicles Test Procedure — the standardized
+        EU method for measuring fuel consumption and CO2 emissions for vehicles.
+        Replaced the older NEDC cycle since September 2017.
+      tags:
+        - Emissions
+        - Compliance
+
+    - term: Market / Country Code
+      definition: >-
+        An ISO 3166-2 identifier for the country/market where a vehicle
+        configuration is requested. Prices, options, and available brands vary
+        by market. Examples: DE (Germany), AT (Austria), GB (United Kingdom).
+      tags:
+        - Geographic
+
+    - term: VW Group Brands
+      definition: >-
+        The portfolio of brands under Volkswagen AG accessible via OKAPI:
+        Volkswagen, Audi, SEAT, Skoda, CUPRA, Porsche, Lamborghini,
+        Bentley, and others depending on market.
+      tags:
+        - Brands
+
+    - term: Options
+      definition: >-
+        Configurable elements of a vehicle type that can be selected by a buyer,
+        including exterior color, interior trim, wheel designs, infotainment systems,
+        assistance packages, and service guarantees.
+      tags:
+        - Configuration
+
+    - term: ETag
+      definition: >-
+        An HTTP caching mechanism used by OKAPI to track catalog changes.
+        The X-Catalog-Content-Lastupdate header provides timestamps for
+        detecting when product data has been updated.
+      tags:
+        - HTTP
+        - Caching
+
+    - term: Recover
+      definition: >-
+        An OKAPI operation that takes an unbuildable configuration and returns
+        the nearest valid buildable configuration by resolving incompatible option
+        selections.
+      tags:
+        - Configuration
+
+    - term: Throttling
+      definition: >-
+        OKAPI rate limiting applied to API requests. Developers must respect
+        request quotas to maintain API access, documented in OKAPI's developer portal.
+      tags:
+        - API Management
+
+    - term: Standard Equipment
+      definition: >-
+        Features included by default in a vehicle type at no additional cost,
+        returned as part of order information. Examples: Lane Assist, Digital Cockpit.
+      tags:
+        - Order

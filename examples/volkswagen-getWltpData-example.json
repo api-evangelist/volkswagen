@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://productdata.volkswagenag.com/v3/operation/DE/wltp",
+    "headers": {
+      "Authorization": "Bearer <access-token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "typeId": "d3f207e5-18d8-5bd2-a5fa-a1acc05629fa",
+      "selectedOptions": ["C3Z7-exterior-color-reflex-silver"]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "fuelConsumption": {
+        "combined": 5.9,
+        "urban": 7.2,
+        "extraUrban": 5.1
+      },
+      "co2Emissions": {
+        "combined": 134
+      },
+      "energyEfficiencyClass": "B"
+    }
+  }
+}

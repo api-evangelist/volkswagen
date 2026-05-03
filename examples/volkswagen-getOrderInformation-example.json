@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://productdata.volkswagenag.com/v3/operation/DE/order",
+    "headers": {
+      "Authorization": "Bearer <access-token>",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "typeId": "d3f207e5-18d8-5bd2-a5fa-a1acc05629fa",
+      "selectedOptions": [
+        "C3Z7-exterior-color-reflex-silver",
+        "FK1A-interior-black-leather",
+        "5G2-18inch-alloys"
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "typeId": "d3f207e5-18d8-5bd2-a5fa-a1acc05629fa",
+      "selectedOptions": [
+        "C3Z7-exterior-color-reflex-silver",
+        "FK1A-interior-black-leather",
+        "5G2-18inch-alloys"
+      ],
+      "totalPrice": {
+        "amount": 32450.00,
+        "currency": "EUR"
+      },
+      "standardEquipment": [
+        "Adaptive Cruise Control",
+        "Lane Assist",
+        "Front Assist with pedestrian monitoring",
+        "Digital Cockpit Pro"
+      ],
+      "technicalData": {
+        "enginePower": "110 kW / 150 PS",
+        "transmission": "7-speed DSG",
+        "fuelType": "Petrol",
+        "displacement": "1498 cc"
+      }
+    }
+  }
+}

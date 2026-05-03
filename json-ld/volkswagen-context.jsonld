@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "vw": "https://productdata.volkswagenag.com/ns/",
+    "okapi": "https://productdata.volkswagenag.com/v3/",
+    "configId": "vw:configId",
+    "typeId": "vw:typeId",
+    "selectedOptions": "vw:selectedOptions",
+    "buildable": "vw:buildable",
+    "wltp": "vw:WltpData",
+    "fuelConsumption": "vw:fuelConsumption",
+    "co2Emissions": "vw:co2Emissions",
+    "energyEfficiencyClass": "vw:energyEfficiencyClass",
+    "Car": "schema:Car",
+    "Vehicle": "schema:Vehicle",
+    "Offer": "schema:Offer",
+    "Product": "schema:Product",
+    "Organization": "schema:Organization",
+    "name": "schema:name",
+    "description": "schema:description",
+    "identifier": "schema:identifier",
+    "price": "schema:price",
+    "priceCurrency": "schema:priceCurrency",
+    "url": "schema:url",
+    "brand": "schema:brand",
+    "model": "schema:model",
+    "manufacturer": "schema:manufacturer",
+    "countryOfOrigin": "schema:countryOfOrigin",
+    "fuelType": "schema:fuelType",
+    "emissionsCO2": "schema:emissionsCO2"
+  }
+}
