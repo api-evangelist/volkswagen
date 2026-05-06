@@ -1,13 +1,13 @@
-naftiko: "1.0.0-alpha1"
+naftiko: 1.0.0-alpha2
 
 info:
   label: "Volkswagen Vehicle Configuration"
   description: >-
-    Unified capability for the Volkswagen OKAPI vehicle configurator workflow.
-    Enables browsing the VW Group product catalog across global markets,
-    configuring vehicles with options, validating buildability, and retrieving
-    order information, WLTP emissions, and vehicle images. Used by automotive
-    retailers, configurator apps, and digital sales platforms.
+    Self-contained capability for the Volkswagen OKAPI vehicle configurator
+    workflow. Browses the VW Group product catalog across global markets,
+    configures vehicles with options, validates buildability, and retrieves
+    order information, WLTP emissions, and configuration images. Used by
+    automotive retailers, configurator apps, and digital sales platforms.
   tags:
     - Volkswagen
     - Automotive
@@ -16,7 +16,7 @@ info:
     - Configurator
     - Sales
   created: "2026-05-03"
-  modified: "2026-05-03"
+  modified: "2026-05-05"
 
 binds:
   - namespace: env
@@ -25,8 +25,250 @@ binds:
 
 capability:
   consumes:
-    - import: volkswagen-okapi
-      location: ./shared/volkswagen-okapi.yaml
+    - type: http
+      namespace: volkswagen-okapi
+      baseUri: https://productdata.volkswagenag.com/v3
+      description: "Volkswagen OKAPI product data and configuration API."
+      authentication:
+        type: bearer
+        token: "{{VOLKSWAGEN_OKAPI_TOKEN}}"
+      resources:
+        - name: countries
+          path: /countries
+          description: "List supported markets."
+          operations:
+            - name: list-countries
+              method: GET
+              description: "List all countries where OKAPI vehicle configuration is available."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: brands
+          path: /catalog/{countryCode}/brands
+          description: "VW Group brands by market."
+          operations:
+            - name: list-brands-by-country
+              method: GET
+              description: "List VW Group brands available in a country."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+                  description: "ISO 3166-2 market code (e.g. DE, GB, US)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: models
+          path: /catalog/{countryCode}/brands/{brandId}/models
+          description: "Models by brand and market."
+          operations:
+            - name: list-models-by-brand
+              method: GET
+              description: "List vehicle models for a brand in a market."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+                - name: brandId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Brand UUID."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: types
+          path: /catalog/{countryCode}/models/{modelId}/types
+          description: "Vehicle types by model."
+          operations:
+            - name: list-types-by-model
+              method: GET
+              description: "List vehicle types (trims, engine variants) for a model."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+                - name: modelId
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: options
+          path: /catalog/{countryCode}/types/{typeId}/options
+          description: "Configurable options for a vehicle type."
+          operations:
+            - name: list-options-by-type
+              method: GET
+              description: "List all configurable options for a vehicle type."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+                - name: typeId
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: buildability
+          path: /operation/{countryCode}/check
+          description: "Validate a vehicle configuration."
+          operations:
+            - name: check-buildability
+              method: POST
+              description: "Check whether a configuration is buildable."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  typeId: "{{tools.typeId}}"
+                  selectedOptions: "{{tools.selectedOptions}}"
+
+        - name: recover
+          path: /operation/{countryCode}/recover
+          description: "Recover a buildable configuration."
+          operations:
+            - name: recover-configuration
+              method: POST
+              description: "Return nearest valid configuration for an unbuildable selection."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  typeId: "{{tools.typeId}}"
+                  selectedOptions: "{{tools.selectedOptions}}"
+
+        - name: configure
+          path: /operation/{countryCode}/configure
+          description: "Get available options for current config."
+          operations:
+            - name: get-configuration-options
+              method: POST
+              description: "List available, unavailable, and required options."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  typeId: "{{tools.typeId}}"
+                  selectedOptions: "{{tools.selectedOptions}}"
+
+        - name: wltp
+          path: /operation/{countryCode}/wltp
+          description: "WLTP emissions data for a configuration."
+          operations:
+            - name: get-wltp-data
+              method: POST
+              description: "Get WLTP fuel consumption and CO2 emissions for a configuration."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  typeId: "{{tools.typeId}}"
+                  selectedOptions: "{{tools.selectedOptions}}"
+
+        - name: images
+          path: /operation/{countryCode}/images
+          description: "Vehicle images for a configuration."
+          operations:
+            - name: get-configuration-images
+              method: POST
+              description: "Get image URLs for the configured vehicle."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  typeId: "{{tools.typeId}}"
+                  selectedOptions: "{{tools.selectedOptions}}"
+
+        - name: order
+          path: /operation/{countryCode}/order
+          description: "Order information for a configuration."
+          operations:
+            - name: get-order-information
+              method: POST
+              description: "Get pricing, standard equipment, and technical data."
+              inputParameters:
+                - name: countryCode
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  typeId: "{{tools.typeId}}"
+                  selectedOptions: "{{tools.selectedOptions}}"
 
   exposes:
     - type: rest
