@@ -73,7 +73,7 @@ common:
     url: json-schema/volkswagen-vehicle-config-schema.json
   - type: JSONStructure
     url: json-structure/volkswagen-vehicle-config-structure.json
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/volkswagen-context.jsonld
   - type: Vocabulary
     url: vocabulary/volkswagen-vocabulary.yml
