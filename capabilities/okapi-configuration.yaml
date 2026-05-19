@@ -1,0 +1,206 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Volkswagen OKAPI - Open Konfigurator API — Configuration
+  description: 'Volkswagen OKAPI - Open Konfigurator API — Configuration. 4 operations. Lead operation: Check Configuration
+    Buildability. Self-contained Naftiko capability covering one Volkswagen business surface.'
+  tags:
+  - Volkswagen
+  - Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    VOLKSWAGEN_API_KEY: VOLKSWAGEN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: okapi-configuration
+    baseUri: https://productdata.volkswagenag.com/v3
+    description: Volkswagen OKAPI - Open Konfigurator API — Configuration business capability. Self-contained, no shared references.
+    resources:
+    - name: operation-countryCode-check
+      path: /operation/{countryCode}/check
+      operations:
+      - name: checkbuildability
+        method: POST
+        description: Check Configuration Buildability
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: operation-countryCode-configure
+      path: /operation/{countryCode}/configure
+      operations:
+      - name: getconfigurationoptions
+        method: POST
+        description: Get Configuration Options
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: operation-countryCode-recover
+      path: /operation/{countryCode}/recover
+      operations:
+      - name: recoverconfiguration
+        method: POST
+        description: Recover Buildable Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: operation-countryCode-resolve
+      path: /operation/{countryCode}/resolve
+      operations:
+      - name: resolveconfiguration
+        method: POST
+        description: Resolve Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.VOLKSWAGEN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: okapi-configuration-rest
+    port: 8080
+    description: REST adapter for Volkswagen OKAPI - Open Konfigurator API — Configuration. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/operation/{countrycode}/check
+      name: operation-countrycode-check
+      description: REST surface for operation-countryCode-check.
+      operations:
+      - method: POST
+        name: checkbuildability
+        description: Check Configuration Buildability
+        call: okapi-configuration.checkbuildability
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operation/{countrycode}/configure
+      name: operation-countrycode-configure
+      description: REST surface for operation-countryCode-configure.
+      operations:
+      - method: POST
+        name: getconfigurationoptions
+        description: Get Configuration Options
+        call: okapi-configuration.getconfigurationoptions
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operation/{countrycode}/recover
+      name: operation-countrycode-recover
+      description: REST surface for operation-countryCode-recover.
+      operations:
+      - method: POST
+        name: recoverconfiguration
+        description: Recover Buildable Configuration
+        call: okapi-configuration.recoverconfiguration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operation/{countrycode}/resolve
+      name: operation-countrycode-resolve
+      description: REST surface for operation-countryCode-resolve.
+      operations:
+      - method: POST
+        name: resolveconfiguration
+        description: Resolve Configuration
+        call: okapi-configuration.resolveconfiguration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: okapi-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Volkswagen OKAPI - Open Konfigurator API — Configuration. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: check-configuration-buildability
+      description: Check Configuration Buildability
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: okapi-configuration.checkbuildability
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-configuration-options
+      description: Get Configuration Options
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: okapi-configuration.getconfigurationoptions
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: recover-buildable-configuration
+      description: Recover Buildable Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: okapi-configuration.recoverconfiguration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resolve-configuration
+      description: Resolve Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: okapi-configuration.resolveconfiguration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
