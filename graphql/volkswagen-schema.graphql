@@ -1,0 +1,848 @@
+"""
+Volkswagen We Connect GraphQL Schema
+Covers vehicle status, remote operations, electric vehicle data, trip history,
+geofencing, speed alerts, and fleet management.
+"""
+
+# ===========================================================================
+# Scalar Types
+# ===========================================================================
+
+scalar DateTime
+scalar Date
+scalar Float
+scalar JSON
+
+# ===========================================================================
+# Enums
+# ===========================================================================
+
+"""Current door lock state"""
+enum LockState {
+  LOCKED
+  UNLOCKED
+  UNKNOWN
+}
+
+"""Vehicle window state"""
+enum WindowState {
+  OPEN
+  CLOSED
+  TILTED
+  UNKNOWN
+}
+
+"""Charging connection status"""
+enum ChargingConnectionState {
+  CONNECTED
+  DISCONNECTED
+  INVALID
+  UNKNOWN
+}
+
+"""Charging state of the battery"""
+enum ChargingState {
+  CHARGING
+  READY_FOR_CHARGING
+  NOT_READY_FOR_CHARGING
+  CONSERVING
+  CHARGE_PURPOSE_REACHED
+  UNKNOWN
+}
+
+"""Climate/ventilation state"""
+enum ClimatisationState {
+  HEATING
+  COOLING
+  OFF
+  VENTILATION
+  UNKNOWN
+}
+
+"""Vehicle access status"""
+enum AccessStatus {
+  ACCESS_OK
+  INVALID_TOKENS
+  NO_VEHICLE_PAIRED
+  UNKNOWN
+}
+
+"""Trip type classification"""
+enum TripType {
+  SHORT_TERM
+  LONG_TERM
+  CYCLIC
+}
+
+"""Fuel type"""
+enum FuelType {
+  PETROL
+  DIESEL
+  ELECTRIC
+  HYBRID_PETROL
+  HYBRID_DIESEL
+  CNG
+  LPG
+  UNKNOWN
+}
+
+"""Alert severity level"""
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+"""Speed alert direction"""
+enum SpeedAlertDirection {
+  ABOVE
+  BELOW
+}
+
+"""Geofence shape"""
+enum GeofenceType {
+  CIRCLE
+  POLYGON
+}
+
+"""Remote operation result"""
+enum OperationStatus {
+  QUEUED
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  TIMEOUT
+}
+
+"""Charging power unit"""
+enum ChargingPowerUnit {
+  KW
+  KWH
+}
+
+"""Temperature unit"""
+enum TemperatureUnit {
+  CELSIUS
+  FAHRENHEIT
+}
+
+"""Distance unit"""
+enum DistanceUnit {
+  KILOMETERS
+  MILES
+}
+
+"""Maintenance item status"""
+enum MaintenanceStatus {
+  OK
+  DUE_SOON
+  OVERDUE
+  UNKNOWN
+}
+
+"""Parking brake state"""
+enum ParkingBrakeState {
+  ENGAGED
+  DISENGAGED
+  UNKNOWN
+}
+
+"""Horn/light honk action"""
+enum HonkFlashAction {
+  HORN_AND_FLASH
+  FLASH_ONLY
+  HORN_ONLY
+}
+
+# ===========================================================================
+# Core Object Types
+# ===========================================================================
+
+"""Geographical coordinates"""
+type GeoCoordinate {
+  latitude: Float!
+  longitude: Float!
+  altitude: Float
+  accuracy: Float
+}
+
+"""Physical address representation"""
+type Address {
+  street: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  countryCode: String
+}
+
+"""A geographic location combining coordinates and address"""
+type Location {
+  coordinates: GeoCoordinate!
+  address: Address
+  timestamp: DateTime
+}
+
+"""Represents a Volkswagen user account"""
+type User {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  displayName: String
+  locale: String
+  vehicles: [Vehicle!]!
+  preferences: UserPreferences
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""User-level preferences"""
+type UserPreferences {
+  temperatureUnit: TemperatureUnit!
+  distanceUnit: DistanceUnit!
+  language: String
+  notifications: NotificationPreferences
+}
+
+"""Notification preference settings"""
+type NotificationPreferences {
+  pushEnabled: Boolean!
+  emailEnabled: Boolean!
+  smsEnabled: Boolean!
+  geofenceAlerts: Boolean!
+  speedAlerts: Boolean!
+  maintenanceAlerts: Boolean!
+  chargingAlerts: Boolean!
+}
+
+"""A paired vehicle in the We Connect system"""
+type Vehicle {
+  vin: String!
+  nickname: String
+  model: VehicleModel!
+  status: VehicleStatus
+  location: Location
+  trips: [Trip!]!
+  geofences: [Geofence!]!
+  speedAlerts: [SpeedAlert!]!
+  maintenanceItems: [MaintenanceItem!]!
+  capabilities: VehicleCapabilities!
+  images: [VehicleImage!]!
+  lastUpdated: DateTime
+}
+
+"""Static model information for a vehicle"""
+type VehicleModel {
+  make: String!
+  modelName: String!
+  modelYear: Int!
+  trim: String
+  bodyStyle: String
+  fuelType: FuelType!
+  transmissionType: String
+  engineDisplacement: Float
+  color: VehicleColor
+  doors: Int
+  seats: Int
+}
+
+"""Vehicle paint color"""
+type VehicleColor {
+  code: String!
+  name: String
+  hexValue: String
+  type: String
+}
+
+"""What remote features this vehicle supports"""
+type VehicleCapabilities {
+  remoteLock: Boolean!
+  remoteVentilation: Boolean!
+  remoteHeating: Boolean!
+  remoteCharging: Boolean!
+  honkAndFlash: Boolean!
+  locationTracking: Boolean!
+  tripData: Boolean!
+  geofencing: Boolean!
+  speedAlerts: Boolean!
+  parkingPosition: Boolean!
+  chargeScheduling: Boolean!
+}
+
+"""Images associated with a vehicle"""
+type VehicleImage {
+  url: String!
+  type: String
+  angle: String
+  width: Int
+  height: Int
+}
+
+# ===========================================================================
+# Vehicle Status Types
+# ===========================================================================
+
+"""Aggregated real-time status of a vehicle"""
+type VehicleStatus {
+  vin: String!
+  doors: DoorsStatus
+  windows: WindowsStatus
+  lights: LightsStatus
+  engine: EngineStatus
+  fuel: FuelStatus
+  electric: ElectricStatus
+  climate: ClimateStatus
+  security: SecurityStatus
+  odometer: OdometerReading
+  parkingBrake: ParkingBrakeState
+  timestamp: DateTime!
+}
+
+"""State of all doors"""
+type DoorsStatus {
+  frontLeft: LockState!
+  frontRight: LockState!
+  rearLeft: LockState
+  rearRight: LockState
+  trunk: LockState
+  hood: LockState
+  overallLocked: Boolean!
+}
+
+"""State of all windows"""
+type WindowsStatus {
+  frontLeft: WindowState!
+  frontRight: WindowState!
+  rearLeft: WindowState
+  rearRight: WindowState
+  sunroof: WindowState
+  anyOpen: Boolean!
+}
+
+"""Exterior lighting state"""
+type LightsStatus {
+  parkingLights: Boolean!
+  headlights: Boolean!
+  hazardLights: Boolean!
+  daytimeRunningLights: Boolean
+}
+
+"""Engine and ignition status"""
+type EngineStatus {
+  running: Boolean!
+  ignitionState: String
+  oilTemperature: Float
+  oilPressureWarning: Boolean
+  coolantTemperature: Float
+}
+
+"""Fuel level and range data"""
+type FuelStatus {
+  level: Float
+  levelPercentage: Int
+  range: Float
+  distanceUnit: DistanceUnit!
+  lowFuelWarning: Boolean!
+}
+
+"""Electric vehicle battery and charging data"""
+type ElectricStatus {
+  batteryLevel: Int!
+  batteryTemperature: Float
+  range: Float!
+  distanceUnit: DistanceUnit!
+  chargingState: ChargingState!
+  connectionState: ChargingConnectionState!
+  chargeRate: Float
+  chargeRateUnit: ChargingPowerUnit
+  estimatedFullChargeTime: Int
+  targetChargeLevel: Int
+  chargeSchedule: ChargeSchedule
+}
+
+"""Climate/ventilation/heating control state"""
+type ClimateStatus {
+  state: ClimatisationState!
+  targetTemperature: Float
+  temperatureUnit: TemperatureUnit!
+  windowHeatingActive: Boolean
+  estimatedStopTime: DateTime
+  remaningTime: Int
+}
+
+"""Vehicle security state"""
+type SecurityStatus {
+  alarmActive: Boolean!
+  immobilizerActive: Boolean
+  accessStatus: AccessStatus!
+}
+
+"""Odometer reading"""
+type OdometerReading {
+  value: Float!
+  unit: DistanceUnit!
+  timestamp: DateTime!
+}
+
+# ===========================================================================
+# Charging Types
+# ===========================================================================
+
+"""Scheduled charge session configuration"""
+type ChargeSchedule {
+  id: ID!
+  enabled: Boolean!
+  targetLevel: Int!
+  startTime: String
+  endTime: String
+  repeatDays: [Int!]
+  preferredChargingWindow: ChargingWindow
+}
+
+"""Time window for preferred charging"""
+type ChargingWindow {
+  startHour: Int!
+  startMinute: Int!
+  endHour: Int!
+  endMinute: Int!
+}
+
+"""Historical charging session record"""
+type ChargingSession {
+  id: ID!
+  vin: String!
+  startTime: DateTime!
+  endTime: DateTime
+  energyAdded: Float
+  startLevel: Int
+  endLevel: Int
+  location: Location
+  durationMinutes: Int
+  peakPowerKw: Float
+}
+
+# ===========================================================================
+# Trip Types
+# ===========================================================================
+
+"""A recorded vehicle trip"""
+type Trip {
+  id: ID!
+  vin: String!
+  type: TripType!
+  startTime: DateTime!
+  endTime: DateTime!
+  startLocation: Location
+  endLocation: Location
+  distance: Float!
+  distanceUnit: DistanceUnit!
+  durationMinutes: Int!
+  averageSpeed: Float
+  topSpeed: Float
+  fuelConsumed: Float
+  electricEnergyConsumed: Float
+  recuperatedEnergy: Float
+  averageElectricConsumption: Float
+  averageFuelConsumption: Float
+  drivingStyle: DrivingStyleScore
+  route: [GeoCoordinate!]
+}
+
+"""Driving behaviour score breakdown"""
+type DrivingStyleScore {
+  overall: Float!
+  acceleration: Float
+  braking: Float
+  coasting: Float
+  constancy: Float
+  environmentalScore: Float
+}
+
+# ===========================================================================
+# Geofencing Types
+# ===========================================================================
+
+"""A geofence definition"""
+type Geofence {
+  id: ID!
+  vin: String!
+  name: String!
+  type: GeofenceType!
+  enabled: Boolean!
+  center: GeoCoordinate
+  radius: Float
+  polygon: [GeoCoordinate!]
+  enterAlert: Boolean!
+  exitAlert: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A geofence event log entry"""
+type GeofenceEvent {
+  id: ID!
+  geofenceId: ID!
+  vin: String!
+  eventType: String!
+  timestamp: DateTime!
+  location: GeoCoordinate!
+  geofence: Geofence
+}
+
+# ===========================================================================
+# Speed Alert Types
+# ===========================================================================
+
+"""A speed threshold alert rule"""
+type SpeedAlert {
+  id: ID!
+  vin: String!
+  name: String!
+  enabled: Boolean!
+  threshold: Float!
+  thresholdUnit: DistanceUnit!
+  direction: SpeedAlertDirection!
+  severity: AlertSeverity!
+  createdAt: DateTime!
+}
+
+"""A speed alert event"""
+type SpeedAlertEvent {
+  id: ID!
+  alertId: ID!
+  vin: String!
+  timestamp: DateTime!
+  speed: Float!
+  speedUnit: DistanceUnit!
+  location: GeoCoordinate
+  alert: SpeedAlert
+}
+
+# ===========================================================================
+# Maintenance Types
+# ===========================================================================
+
+"""A maintenance item or service reminder"""
+type MaintenanceItem {
+  id: ID!
+  vin: String!
+  name: String!
+  description: String
+  status: MaintenanceStatus!
+  dueDate: Date
+  dueDistance: Float
+  dueDistanceUnit: DistanceUnit
+  lastServiceDate: Date
+  lastServiceDistance: Float
+}
+
+# ===========================================================================
+# Remote Operation Types
+# ===========================================================================
+
+"""Result of a remote vehicle operation"""
+type RemoteOperationResult {
+  operationId: ID!
+  vin: String!
+  operationType: String!
+  status: OperationStatus!
+  requestedAt: DateTime!
+  completedAt: DateTime
+  errorCode: String
+  errorMessage: String
+}
+
+"""Request inputs for locking/unlocking"""
+input LockOperationInput {
+  vin: String!
+  action: LockState!
+}
+
+"""Request inputs for starting climate control"""
+input ClimateOperationInput {
+  vin: String!
+  targetTemperature: Float
+  temperatureUnit: TemperatureUnit
+  durationMinutes: Int
+  windowHeating: Boolean
+}
+
+"""Request inputs for charging operations"""
+input ChargingOperationInput {
+  vin: String!
+  action: String!
+  targetLevel: Int
+}
+
+"""Request inputs for honk and flash"""
+input HonkFlashInput {
+  vin: String!
+  action: HonkFlashAction!
+}
+
+"""Input for creating a geofence"""
+input CreateGeofenceInput {
+  vin: String!
+  name: String!
+  type: GeofenceType!
+  center: GeoCoordinateInput
+  radius: Float
+  polygon: [GeoCoordinateInput!]
+  enterAlert: Boolean!
+  exitAlert: Boolean!
+}
+
+"""Input for updating a geofence"""
+input UpdateGeofenceInput {
+  name: String
+  enabled: Boolean
+  center: GeoCoordinateInput
+  radius: Float
+  polygon: [GeoCoordinateInput!]
+  enterAlert: Boolean
+  exitAlert: Boolean
+}
+
+"""Input for GeoCoordinate"""
+input GeoCoordinateInput {
+  latitude: Float!
+  longitude: Float!
+  altitude: Float
+}
+
+"""Input for creating a speed alert"""
+input CreateSpeedAlertInput {
+  vin: String!
+  name: String!
+  threshold: Float!
+  thresholdUnit: DistanceUnit!
+  direction: SpeedAlertDirection!
+  severity: AlertSeverity!
+}
+
+"""Input for updating a speed alert"""
+input UpdateSpeedAlertInput {
+  name: String
+  enabled: Boolean
+  threshold: Float
+  thresholdUnit: DistanceUnit
+  direction: SpeedAlertDirection
+  severity: AlertSeverity
+}
+
+"""Input for scheduling a charge session"""
+input ChargeScheduleInput {
+  vin: String!
+  targetLevel: Int!
+  startTime: String
+  endTime: String
+  repeatDays: [Int!]
+  preferredChargingWindow: ChargingWindowInput
+}
+
+"""Input for a charging window"""
+input ChargingWindowInput {
+  startHour: Int!
+  startMinute: Int!
+  endHour: Int!
+  endMinute: Int!
+}
+
+# ===========================================================================
+# Pagination and Filter Types
+# ===========================================================================
+
+"""Pagination parameters"""
+input PaginationInput {
+  page: Int
+  pageSize: Int
+}
+
+"""Trip filter parameters"""
+input TripFilterInput {
+  startDate: DateTime
+  endDate: DateTime
+  type: TripType
+  minDistance: Float
+  maxDistance: Float
+}
+
+"""Pagination metadata in responses"""
+type PageInfo {
+  totalCount: Int!
+  page: Int!
+  pageSize: Int!
+  totalPages: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"""Paginated list of trips"""
+type TripConnection {
+  trips: [Trip!]!
+  pageInfo: PageInfo!
+}
+
+"""Paginated list of charging sessions"""
+type ChargingSessionConnection {
+  sessions: [ChargingSession!]!
+  pageInfo: PageInfo!
+}
+
+"""Paginated list of geofence events"""
+type GeofenceEventConnection {
+  events: [GeofenceEvent!]!
+  pageInfo: PageInfo!
+}
+
+"""Paginated list of speed alert events"""
+type SpeedAlertEventConnection {
+  events: [SpeedAlertEvent!]!
+  pageInfo: PageInfo!
+}
+
+# ===========================================================================
+# Root Query Type
+# ===========================================================================
+
+type Query {
+  """Fetch the authenticated user profile"""
+  me: User!
+
+  """Fetch a specific vehicle by VIN"""
+  vehicle(vin: String!): Vehicle
+
+  """Fetch all vehicles for the authenticated user"""
+  vehicles: [Vehicle!]!
+
+  """Fetch real-time status for a vehicle"""
+  vehicleStatus(vin: String!): VehicleStatus
+
+  """Fetch current vehicle location"""
+  vehicleLocation(vin: String!): Location
+
+  """Fetch trips for a vehicle"""
+  trips(vin: String!, filter: TripFilterInput, pagination: PaginationInput): TripConnection!
+
+  """Fetch a single trip by ID"""
+  trip(id: ID!): Trip
+
+  """Fetch geofences for a vehicle"""
+  geofences(vin: String!): [Geofence!]!
+
+  """Fetch a single geofence by ID"""
+  geofence(id: ID!): Geofence
+
+  """Fetch geofence events for a vehicle"""
+  geofenceEvents(vin: String!, geofenceId: ID, pagination: PaginationInput): GeofenceEventConnection!
+
+  """Fetch speed alerts for a vehicle"""
+  speedAlerts(vin: String!): [SpeedAlert!]!
+
+  """Fetch speed alert events for a vehicle"""
+  speedAlertEvents(vin: String!, alertId: ID, pagination: PaginationInput): SpeedAlertEventConnection!
+
+  """Fetch maintenance items for a vehicle"""
+  maintenanceItems(vin: String!): [MaintenanceItem!]!
+
+  """Fetch charging sessions for a vehicle"""
+  chargingSessions(vin: String!, pagination: PaginationInput): ChargingSessionConnection!
+
+  """Fetch current charge schedule for a vehicle"""
+  chargeSchedule(vin: String!): ChargeSchedule
+
+  """Check the status of a remote operation"""
+  operationStatus(operationId: ID!): RemoteOperationResult
+}
+
+# ===========================================================================
+# Root Mutation Type
+# ===========================================================================
+
+type Mutation {
+  """Lock or unlock the vehicle"""
+  lockVehicle(input: LockOperationInput!): RemoteOperationResult!
+
+  """Start or stop climate control"""
+  controlClimate(input: ClimateOperationInput!): RemoteOperationResult!
+
+  """Stop active climate control"""
+  stopClimate(vin: String!): RemoteOperationResult!
+
+  """Control vehicle charging"""
+  controlCharging(input: ChargingOperationInput!): RemoteOperationResult!
+
+  """Trigger honk and/or flash lights"""
+  honkAndFlash(input: HonkFlashInput!): RemoteOperationResult!
+
+  """Create a new geofence"""
+  createGeofence(input: CreateGeofenceInput!): Geofence!
+
+  """Update an existing geofence"""
+  updateGeofence(id: ID!, input: UpdateGeofenceInput!): Geofence!
+
+  """Delete a geofence"""
+  deleteGeofence(id: ID!): Boolean!
+
+  """Create a speed alert"""
+  createSpeedAlert(input: CreateSpeedAlertInput!): SpeedAlert!
+
+  """Update a speed alert"""
+  updateSpeedAlert(id: ID!, input: UpdateSpeedAlertInput!): SpeedAlert!
+
+  """Delete a speed alert"""
+  deleteSpeedAlert(id: ID!): Boolean!
+
+  """Set or update charge schedule"""
+  setChargeSchedule(input: ChargeScheduleInput!): ChargeSchedule!
+
+  """Remove charge schedule"""
+  deleteChargeSchedule(vin: String!): Boolean!
+
+  """Update user preferences"""
+  updateUserPreferences(preferences: UserPreferencesInput!): UserPreferences!
+
+  """Update vehicle nickname"""
+  updateVehicleNickname(vin: String!, nickname: String!): Vehicle!
+}
+
+"""Input for updating user preferences"""
+input UserPreferencesInput {
+  temperatureUnit: TemperatureUnit
+  distanceUnit: DistanceUnit
+  language: String
+  notifications: NotificationPreferencesInput
+}
+
+"""Input for notification preferences"""
+input NotificationPreferencesInput {
+  pushEnabled: Boolean
+  emailEnabled: Boolean
+  smsEnabled: Boolean
+  geofenceAlerts: Boolean
+  speedAlerts: Boolean
+  maintenanceAlerts: Boolean
+  chargingAlerts: Boolean
+}
+
+# ===========================================================================
+# Root Subscription Type
+# ===========================================================================
+
+type Subscription {
+  """Subscribe to real-time vehicle status updates"""
+  vehicleStatusUpdated(vin: String!): VehicleStatus!
+
+  """Subscribe to geofence entry/exit events"""
+  geofenceEvent(vin: String!): GeofenceEvent!
+
+  """Subscribe to speed alert triggers"""
+  speedAlertTriggered(vin: String!): SpeedAlertEvent!
+
+  """Subscribe to charging state changes"""
+  chargingStateChanged(vin: String!): ElectricStatus!
+
+  """Subscribe to remote operation status changes"""
+  operationUpdated(operationId: ID!): RemoteOperationResult!
+}
