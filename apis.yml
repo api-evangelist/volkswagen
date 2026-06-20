@@ -8,7 +8,7 @@ description: Volkswagen is a German automotive company and the parent of the VW 
   buildability validation, WLTP emissions data, configuration images, and order/pricing
   information across global markets.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2025-02-25'
 modified: '2026-05-19'
