@@ -47,6 +47,12 @@ apis:
   - url: graphql/volkswagen-graphql.md
     type: GraphQL
 common:
+- type: VulnerabilityDisclosure
+  url: security/volkswagen-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/volkswagen-domain-security.yml
+- type: Authentication
+  url: authentication/volkswagen-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/volkswagen
 - type: LinkedIn
@@ -83,6 +89,8 @@ common:
   url: vocabulary/volkswagen-vocabulary.yml
 - type: SpectralRules
   url: rules/volkswagen-rules.yml
+- url: https://www.volkswagen-newsroom.com/en/feeds/press-releases
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

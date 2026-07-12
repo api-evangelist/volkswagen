@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/volkswagen-okapi-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token obtained by requesting client credentials from the Volkswagen OKAPI
+    Developer Portal.
+  sources:
+  - openapi/volkswagen-okapi-openapi.yml
