@@ -1,0 +1,8 @@
+---
+title: "Much more than a city car: world premiere of the all-new electric ID. Polo"
+url: "https://www.volkswagen-newsroom.com/en/press-releases/much-more-than-a-city-car-world-premiere-of-the-all-new-electric-id-polo-20356"
+date: "2026-04-29"
+author: ""
+feed_url: "https://www.volkswagen-newsroom.com/en/feeds/press-releases"
+---
+Volkswagen is presenting the new ID. Polo and thus the all-electric version of one of the most successful models in its history. Sold over 20 million times, the Polo is now entering a new chapter – completely reimagined and systematically geared towards the future. Developed in Wolfsburg, the ID. Polo combines clear design, generous space and high quality with an attractive entry-level price starting from 24,995 euros (in Germany). The small car also sets technological standards: with a WLTP range of up to 454 km and the new Connected Travel Assist, including automatic traffic light recognition, efficient one-pedal driving or vehicle-to-load function that turns the ID. Polo into a mobile power source for devices such as e-bikes. Pre-sales of the new ID. Polo already start today, Wednesday (in Germany). Read on Consumption data: ID. Polo (155 kW) - Combined power consumption 14.6-13.3 kWh/100 km; combined CO₂ emissions 0 g/km; CO₂ class: A. /// Range determined on the rolling road test bed in accordance with the Worldwide Harmonized Light Vehicles Test Procedure (WLTP) in the most range-favourable equipment variant. The actual WLTP range values may differ depending on the equipment. The actual range achieved under real conditions varies depending on the driving style, speed, use of comfort features or auxiliary equipment, outside temperature, number of passengers/load and topography.
