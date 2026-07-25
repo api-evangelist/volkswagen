@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  title: Volkswagen OKAPI - Open Konfigurator Catalog API
+  description: The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.
+  version: v3
+  contact:
+    name: Volkswagen OKAPI Developer Portal
+    url: https://okapi-ddp.productdata.volkswagenag.com/dev-portal/
+  license:
+    name: Volkswagen OKAPI Terms and Conditions
+    url: https://productdata.volkswagenag.com/condition-of-use.html
+servers:
+- url: https://productdata.volkswagenag.com/v3
+  description: Volkswagen OKAPI API v3
+security:
+- BearerAuth: []
+tags:
+- name: Catalog
+  description: Browse vehicle catalog — countries, brands, models, types, and options.
+paths:
+  /countries:
+    get:
+      operationId: listCountries
+      summary: List Available Countries
+      description: Returns all countries for which OKAPI offers vehicle configuration support. Each country has an ISO 3166-2 market identifier used in subsequent catalog calls.
+      tags:
+      - Catalog
+      responses:
+        '200':
+          description: List of supported countries with their market identifiers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /catalog/{countryCode}/brands:
+    get:
+      operationId: listBrandsByCountry
+      summary: List Brands By Country
+      description: Returns all VW Group brands available in the specified country market.
+      tags:
+      - Catalog
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      responses:
+        '200':
+          description: List of brands available in the country.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /catalog/{countryCode}/brands/{brandId}/models:
+    get:
+      operationId: listModelsByBrand
+      summary: List Models By Brand
+      description: Returns all vehicle models available for a specific brand in a country.
+      tags:
+      - Catalog
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      - $ref: '#/components/parameters/brandId'
+      responses:
+        '200':
+          description: List of models for the brand in the country.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /catalog/{countryCode}/models/{modelId}/types:
+    get:
+      operationId: listTypesByModel
+      summary: List Types By Model
+      description: Returns all vehicle types (trim levels, engine variants) for a specific model.
+      tags:
+      - Catalog
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      - $ref: '#/components/parameters/modelId'
+      responses:
+        '200':
+          description: List of vehicle types for the model.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TypeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /catalog/{countryCode}/types/{typeId}/options:
+    get:
+      operationId: listOptionsByType
+      summary: List Options By Type
+      description: Returns all configurable options for a vehicle type, including exterior colors, interior colors, wheels, radio, packages, and service guarantees.
+      tags:
+      - Catalog
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      - $ref: '#/components/parameters/typeId'
+      responses:
+        '200':
+          description: Available options for the vehicle type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Country:
+      type: object
+      properties:
+        code:
+          type: string
+          description: ISO 3166-2 country/market code.
+          example: DE
+        name:
+          type: string
+          description: Country display name.
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    VehicleType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Vehicle type UUID.
+        name:
+          type: string
+          description: Type name including engine and trim designation.
+        basePrice:
+          $ref: '#/components/schemas/Price'
+    ModelList:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+    BrandList:
+      type: object
+      properties:
+        brands:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
+    Option:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Option UUID.
+        name:
+          type: string
+          description: Option display name.
+        category:
+          type: string
+          enum:
+          - exterior-color
+          - interior
+          - wheels
+          - radio
+          - packages
+          - service
+          description: Option category.
+        price:
+          $ref: '#/components/schemas/Price'
+    Brand:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Brand UUID.
+        name:
+          type: string
+          description: Brand name (e.g. Volkswagen, Audi, SEAT, Skoda, CUPRA).
+    OptionList:
+      type: object
+      properties:
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    CountryList:
+      type: object
+      properties:
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+    Model:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Model UUID.
+        name:
+          type: string
+          description: Model name (e.g. Golf, Passat, Tiguan).
+        year:
+          type: integer
+          description: Model year.
+    TypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleType'
+  parameters:
+    modelId:
+      name: modelId
+      in: path
+      required: true
+      description: Model UUID identifier.
+      schema:
+        type: string
+    typeId:
+      name: typeId
+      in: path
+      required: true
+      description: Vehicle type UUID identifier.
+      schema:
+        type: string
+    brandId:
+      name: brandId
+      in: path
+      required: true
+      description: Brand UUID identifier.
+      schema:
+        type: string
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    TooManyRequests:
+      description: Request rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained by requesting client credentials from the Volkswagen OKAPI Developer Portal.

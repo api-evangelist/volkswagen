@@ -1,0 +1,208 @@
+openapi: 3.1.0
+info:
+  title: Volkswagen OKAPI - Open Konfigurator Catalog Information API
+  description: The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.
+  version: v3
+  contact:
+    name: Volkswagen OKAPI Developer Portal
+    url: https://okapi-ddp.productdata.volkswagenag.com/dev-portal/
+  license:
+    name: Volkswagen OKAPI Terms and Conditions
+    url: https://productdata.volkswagenag.com/condition-of-use.html
+servers:
+- url: https://productdata.volkswagenag.com/v3
+  description: Volkswagen OKAPI API v3
+security:
+- BearerAuth: []
+tags:
+- name: Information
+  description: Retrieve vehicle information — WLTP emissions, images, and order data.
+paths:
+  /operation/{countryCode}/wltp:
+    post:
+      operationId: getWltpData
+      summary: Get WLTP Emissions Data
+      description: Retrieves WLTP (Worldwide Harmonised Light Vehicles Test Procedure) fuel consumption and CO2 emissions data for a vehicle configuration.
+      tags:
+      - Information
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: WLTP emissions and fuel consumption data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WltpData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/images:
+    post:
+      operationId: getConfigurationImages
+      summary: Get Configuration Images
+      description: Returns URLs for vehicle images that correspond to the specified configuration, showing the vehicle with the selected exterior color, wheels, and other visual options.
+      tags:
+      - Information
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Image URLs for the configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/order:
+    post:
+      operationId: getOrderInformation
+      summary: Get Order Information
+      description: 'Returns comprehensive order information for a configuration: current options, price, standard equipment list, and full technical specifications.'
+      tags:
+      - Information
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Order details including price and technical information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    WltpData:
+      type: object
+      properties:
+        fuelConsumption:
+          type: object
+          properties:
+            combined:
+              type: number
+              description: Combined fuel consumption in l/100km.
+            urban:
+              type: number
+            extraUrban:
+              type: number
+        co2Emissions:
+          type: object
+          properties:
+            combined:
+              type: number
+              description: Combined CO2 emissions in g/km.
+        energyEfficiencyClass:
+          type: string
+          description: EU energy efficiency label (A-G).
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
+    ImageData:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: URL of the vehicle image.
+              view:
+                type: string
+                enum:
+                - exterior-front
+                - exterior-rear
+                - exterior-side
+                - interior
+                description: Camera viewpoint.
+              width:
+                type: integer
+              height:
+                type: integer
+    OrderData:
+      type: object
+      properties:
+        configId:
+          type: string
+        typeId:
+          type: string
+        selectedOptions:
+          type: array
+          items:
+            type: string
+        totalPrice:
+          $ref: '#/components/schemas/Price'
+        standardEquipment:
+          type: array
+          items:
+            type: string
+          description: Names of standard equipment included.
+        technicalData:
+          type: object
+          description: Full technical specification data.
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained by requesting client credentials from the Volkswagen OKAPI Developer Portal.

@@ -1,0 +1,214 @@
+openapi: 3.1.0
+info:
+  title: Volkswagen OKAPI - Open Konfigurator Catalog Configuration API
+  description: The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.
+  version: v3
+  contact:
+    name: Volkswagen OKAPI Developer Portal
+    url: https://okapi-ddp.productdata.volkswagenag.com/dev-portal/
+  license:
+    name: Volkswagen OKAPI Terms and Conditions
+    url: https://productdata.volkswagenag.com/condition-of-use.html
+servers:
+- url: https://productdata.volkswagenag.com/v3
+  description: Volkswagen OKAPI API v3
+security:
+- BearerAuth: []
+tags:
+- name: Configuration
+  description: Configure vehicles — check buildability, recover, and resolve configurations.
+paths:
+  /operation/{countryCode}/check:
+    post:
+      operationId: checkBuildability
+      summary: Check Configuration Buildability
+      description: Validates whether a given set of selected options forms a buildable vehicle configuration. Returns conflict information if options are incompatible.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Buildability check result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildabilityResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '406':
+          $ref: '#/components/responses/NotAcceptable'
+  /operation/{countryCode}/recover:
+    post:
+      operationId: recoverConfiguration
+      summary: Recover Buildable Configuration
+      description: Given an unbuildable configuration, returns the nearest valid buildable configuration by resolving conflicts between selected options.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Recovered buildable configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/configure:
+    post:
+      operationId: getConfigurationOptions
+      summary: Get Configuration Options
+      description: Returns available options and choices for the current vehicle configuration, showing which options are selectable, unavailable, or required given current selections.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Available configuration choices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationOptions'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /operation/{countryCode}/resolve:
+    post:
+      operationId: resolveConfiguration
+      summary: Resolve Configuration
+      description: Completes a partial configuration by resolving ambiguities and returning the fully distinct configuration with all options specified.
+      tags:
+      - Configuration
+      parameters:
+      - $ref: '#/components/parameters/countryCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationRequest'
+      responses:
+        '200':
+          description: Fully resolved configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    ConfigurationOptions:
+      type: object
+      properties:
+        available:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs currently selectable.
+        unavailable:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs not selectable with current selections.
+        required:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs required given current selections.
+    ConfigurationResult:
+      type: object
+      properties:
+        configId:
+          type: string
+          description: Session ID for continuing this configuration.
+        typeId:
+          type: string
+        selectedOptions:
+          type: array
+          items:
+            type: string
+        buildable:
+          type: boolean
+    BuildabilityResult:
+      type: object
+      properties:
+        buildable:
+          type: boolean
+          description: Whether the configuration is buildable.
+        conflicts:
+          type: array
+          items:
+            type: object
+            properties:
+              optionId:
+                type: string
+              reason:
+                type: string
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
+  responses:
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    NotAcceptable:
+      description: Configuration has unresolvable conflicts (HTTP 406).
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained by requesting client credentials from the Volkswagen OKAPI Developer Portal.
