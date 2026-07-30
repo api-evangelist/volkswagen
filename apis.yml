@@ -8,7 +8,20 @@ description: Volkswagen is a German automotive company and the parent of the VW 
   buildability validation, WLTP emissions data, configuration images, and order/pricing
   information across global markets.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/volkswagen.png
 access: 3rd-Party
 created: '2025-02-25'
 modified: '2026-05-19'
@@ -21,31 +34,60 @@ tags:
 - Vehicle Configuration
 specificationVersion: '0.19'
 apis:
-- aid: volkswagen:volkswagen-okapi
-  name: Volkswagen OKAPI - Open Konfigurator API
-  description: The VW OKAPI API provides access to Volkswagen AG product data and
-    vehicle configuration services across global markets. Catalog endpoints (GET)
-    browse countries, brands, models, types, and options. Operation endpoints (POST)
-    handle buildability checking, configuration recovery, interactive configuration,
-    resolution, WLTP emissions data, vehicle images, and order information with pricing.
+- aid: volkswagen:volkswagen-catalog-api
+  name: Volkswagen Catalog API
+  description: Browse vehicle catalog — countries, brands, models, types, and options.
   humanURL: https://productdata.volkswagenag.com/
   baseURL: https://productdata.volkswagenag.com/v3
   tags:
-  - Automobiles
-  - Vehicle Configuration
-  - Konfigurator
-  - Product Data
+  - Catalog
   properties:
-  - url: https://productdata.volkswagenag.com/swagger-doc.html
-    type: Documentation
-  - url: https://productdata.volkswagenag.com/tutorial.html
-    type: GettingStarted
-  - url: openapi/volkswagen-okapi-openapi.yml
-    type: OpenAPI
-  - url: json-schema/volkswagen-vehicle-config-schema.json
-    type: JSONSchema
-  - url: graphql/volkswagen-graphql.md
-    type: GraphQL
+  - type: OpenAPI
+    url: openapi/volkswagen-catalog-api-openapi.yml
+  - type: Documentation
+    url: https://productdata.volkswagenag.com/swagger-doc.html
+  - type: GettingStarted
+    url: https://productdata.volkswagenag.com/tutorial.html
+  - type: JSONSchema
+    url: json-schema/volkswagen-vehicle-config-schema.json
+  - type: GraphQL
+    url: graphql/volkswagen-graphql.md
+- aid: volkswagen:volkswagen-configuration-api
+  name: Volkswagen Configuration API
+  description: Configure vehicles — check buildability, recover, and resolve configurations.
+  humanURL: https://productdata.volkswagenag.com/
+  baseURL: https://productdata.volkswagenag.com/v3
+  tags:
+  - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/volkswagen-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://productdata.volkswagenag.com/swagger-doc.html
+  - type: GettingStarted
+    url: https://productdata.volkswagenag.com/tutorial.html
+  - type: JSONSchema
+    url: json-schema/volkswagen-vehicle-config-schema.json
+  - type: GraphQL
+    url: graphql/volkswagen-graphql.md
+- aid: volkswagen:volkswagen-information-api
+  name: Volkswagen Information API
+  description: Retrieve vehicle information — WLTP emissions, images, and order data.
+  humanURL: https://productdata.volkswagenag.com/
+  baseURL: https://productdata.volkswagenag.com/v3
+  tags:
+  - Information
+  properties:
+  - type: OpenAPI
+    url: openapi/volkswagen-information-api-openapi.yml
+  - type: Documentation
+    url: https://productdata.volkswagenag.com/swagger-doc.html
+  - type: GettingStarted
+    url: https://productdata.volkswagenag.com/tutorial.html
+  - type: JSONSchema
+    url: json-schema/volkswagen-vehicle-config-schema.json
+  - type: GraphQL
+    url: graphql/volkswagen-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/volkswagen-agentic-access.yml
