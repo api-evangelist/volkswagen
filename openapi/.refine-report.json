@@ -1,0 +1,18 @@
+{
+  "provider": "volkswagen",
+  "sources": [
+    "volkswagen-catalog-api-openapi.yml",
+    "volkswagen-configuration-api-openapi.yml",
+    "volkswagen-information-api-openapi.yml"
+  ],
+  "outputs": [
+    "volkswagen-catalog-api-openapi.yml",
+    "volkswagen-configuration-api-openapi.yml",
+    "volkswagen-information-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
