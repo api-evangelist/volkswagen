@@ -1,0 +1,129 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Volkswagen OKAPI - Open Konfigurator Catalog API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Available Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://productdata.volkswagenag.com/v3/countries"
+          },
+          "docs": "Returns all countries for which OKAPI offers vehicle configuration support. Each country has an ISO 3166-2 market identifier used in subsequent catalog calls."
+        },
+        {
+          "info": {
+            "name": "List Brands By Country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://productdata.volkswagenag.com/v3/catalog/:countryCode/brands",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ]
+          },
+          "docs": "Returns all VW Group brands available in the specified country market."
+        },
+        {
+          "info": {
+            "name": "List Models By Brand",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://productdata.volkswagenag.com/v3/catalog/:countryCode/brands/:brandId/models",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              },
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path",
+                "description": "Brand UUID identifier."
+              }
+            ]
+          },
+          "docs": "Returns all vehicle models available for a specific brand in a country."
+        },
+        {
+          "info": {
+            "name": "List Types By Model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://productdata.volkswagenag.com/v3/catalog/:countryCode/models/:modelId/types",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Model UUID identifier."
+              }
+            ]
+          },
+          "docs": "Returns all vehicle types (trim levels, engine variants) for a specific model."
+        },
+        {
+          "info": {
+            "name": "List Options By Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://productdata.volkswagenag.com/v3/catalog/:countryCode/types/:typeId/options",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              },
+              {
+                "name": "typeId",
+                "value": "",
+                "type": "path",
+                "description": "Vehicle type UUID identifier."
+              }
+            ]
+          },
+          "docs": "Returns all configurable options for a vehicle type, including exterior colors, interior colors, wheels, radio, packages, and service guarantees."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

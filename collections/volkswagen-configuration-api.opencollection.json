@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Volkswagen OKAPI - Open Konfigurator Catalog Configuration API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Configuration Buildability",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://productdata.volkswagenag.com/v3/operation/:countryCode/check",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates whether a given set of selected options forms a buildable vehicle configuration. Returns conflict information if options are incompatible."
+        },
+        {
+          "info": {
+            "name": "Recover Buildable Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://productdata.volkswagenag.com/v3/operation/:countryCode/recover",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Given an unbuildable configuration, returns the nearest valid buildable configuration by resolving conflicts between selected options."
+        },
+        {
+          "info": {
+            "name": "Get Configuration Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://productdata.volkswagenag.com/v3/operation/:countryCode/configure",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns available options and choices for the current vehicle configuration, showing which options are selectable, unavailable, or required given current selections."
+        },
+        {
+          "info": {
+            "name": "Resolve Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://productdata.volkswagenag.com/v3/operation/:countryCode/resolve",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Completes a partial configuration by resolving ambiguities and returning the fully distinct configuration with all options specified."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

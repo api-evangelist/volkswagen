@@ -1,0 +1,581 @@
+{
+  "item": [
+    {
+      "id": "eec986a7-b0ec-451e-a14f-7abcfc57cfed",
+      "name": "Information",
+      "description": {
+        "content": "Retrieve vehicle information — WLTP emissions, images, and order data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d972c703-14c8-44d5-962b-e4da3ff91be9",
+          "name": "Get WLTP Emissions Data",
+          "request": {
+            "name": "Get WLTP Emissions Data",
+            "description": {
+              "content": "Retrieves WLTP (Worldwide Harmonised Light Vehicles Test Procedure) fuel consumption and CO2 emissions data for a vehicle configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operation",
+                ":countryCode",
+                "wltp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a43d8b61-922f-4e69-b463-11f089a1bada",
+              "name": "WLTP emissions and fuel consumption data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operation",
+                    ":countryCode",
+                    "wltp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fuelConsumption\": {\n    \"combined\": 5510.856313604817,\n    \"urban\": 1518.676012207848,\n    \"extraUrban\": 8719.207002168934\n  },\n  \"co2Emissions\": {\n    \"combined\": 3055.906869013824\n  },\n  \"energyEfficiencyClass\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "856249e2-7fce-4255-a711-412e380093fc",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operation",
+                    ":countryCode",
+                    "wltp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c387d440-04c4-4447-aa2b-32cf07bbe013",
+          "name": "Get Configuration Images",
+          "request": {
+            "name": "Get Configuration Images",
+            "description": {
+              "content": "Returns URLs for vehicle images that correspond to the specified configuration, showing the vehicle with the selected exterior color, wheels, and other visual options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operation",
+                ":countryCode",
+                "images"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc4400e8-0c89-4af8-ad63-745276df6efd",
+              "name": "Image URLs for the configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operation",
+                    ":countryCode",
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"images\": [\n    {\n      \"url\": \"string\",\n      \"view\": \"exterior-rear\",\n      \"width\": 982,\n      \"height\": 3535\n    },\n    {\n      \"url\": \"string\",\n      \"view\": \"exterior-front\",\n      \"width\": 397,\n      \"height\": 3833\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11b0e90e-ae21-43d6-8983-bf29b1908e20",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operation",
+                    ":countryCode",
+                    "images"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1b92bbb-da43-4f2b-9c5f-9e08ee030c9e",
+          "name": "Get Order Information",
+          "request": {
+            "name": "Get Order Information",
+            "description": {
+              "content": "Returns comprehensive order information for a configuration: current options, price, standard equipment list, and full technical specifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operation",
+                ":countryCode",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "countryCode",
+                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "24bac648-a0b5-4a29-9dc5-6eeb0a2d71ff",
+              "name": "Order details including price and technical information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operation",
+                    ":countryCode",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"configId\": \"string\",\n  \"typeId\": \"string\",\n  \"selectedOptions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"totalPrice\": {\n    \"amount\": 524.4369706513974,\n    \"currency\": \"EUR\"\n  },\n  \"standardEquipment\": [\n    \"string\",\n    \"string\"\n  ],\n  \"technicalData\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57161b74-2deb-45ca-9f9f-635b94c22de8",
+              "name": "Missing or invalid bearer token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operation",
+                    ":countryCode",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "countryCode",
+                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://productdata.volkswagenag.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "80e1380c-c46a-4090-a101-acc47d35bf94",
+    "name": "Volkswagen OKAPI - Open Konfigurator Catalog Information API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.\n\nContact Support:\n Name: Volkswagen OKAPI Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

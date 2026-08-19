@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Volkswagen OKAPI - Open Konfigurator Catalog Information API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Information",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get WLTP Emissions Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://productdata.volkswagenag.com/v3/operation/:countryCode/wltp",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves WLTP (Worldwide Harmonised Light Vehicles Test Procedure) fuel consumption and CO2 emissions data for a vehicle configuration."
+        },
+        {
+          "info": {
+            "name": "Get Configuration Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://productdata.volkswagenag.com/v3/operation/:countryCode/images",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns URLs for vehicle images that correspond to the specified configuration, showing the vehicle with the selected exterior color, wheels, and other visual options."
+        },
+        {
+          "info": {
+            "name": "Get Order Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://productdata.volkswagenag.com/v3/operation/:countryCode/order",
+            "params": [
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "path",
+                "description": "ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns comprehensive order information for a configuration: current options, price, standard equipment list, and full technical specifications."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
