@@ -101,6 +101,9 @@ apis:
   - type: GraphQL
     url: graphql/volkswagen-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/volkswagen-capability-edges.yml
+  name: Volkswagen Business Capability Map
 - type: AgenticAccess
   url: agentic-access/volkswagen-agentic-access.yml
 - type: VulnerabilityDisclosure
