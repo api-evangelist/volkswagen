@@ -1,12 +1,11 @@
 aid: volkswagen
 name: Volkswagen
 url: https://productdata.volkswagenag.com/
-description: Volkswagen is a German automotive company and the parent of the VW Group,
-  manufacturing vehicles under brands including Volkswagen, Audi, SEAT, Skoda, CUPRA,
-  Porsche, Lamborghini, and Bentley. The OKAPI (Open Konfigurator API) provides programmatic
-  access to VW AG product data for vehicle catalog browsing, interactive configuration,
-  buildability validation, WLTP emissions data, configuration images, and order/pricing
-  information across global markets.
+description: Volkswagen is a German automotive company and the parent of the VW Group, manufacturing vehicles
+  under brands including Volkswagen, Audi, SEAT, Skoda, CUPRA, Porsche, Lamborghini, and Bentley. The
+  OKAPI (Open Konfigurator API) provides programmatic access to VW AG product data for vehicle catalog
+  browsing, interactive configuration, buildability validation, WLTP emissions data, configuration images,
+  and order/pricing information across global markets.
 type: Index
 deliveryModel:
   model: saas
@@ -37,7 +36,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/volkswagen.png
 access: 3rd-Party
 created: '2025-02-25'
-modified: '2026-05-19'
+modified: '2026-09-16'
 position: Consuming
 tags:
 - Automobiles
@@ -102,6 +101,8 @@ apis:
   - type: GraphQL
     url: graphql/volkswagen-graphql.md
 common:
+- type: Website
+  url: https://volkswagenag.com
 - type: CapabilityMap
   url: capabilities/volkswagen-capability-edges.yml
   name: Volkswagen Business Capability Map
