@@ -62,8 +62,6 @@ apis:
     url: https://productdata.volkswagenag.com/tutorial.html
   - type: JSONSchema
     url: json-schema/volkswagen-vehicle-config-schema.json
-  - type: GraphQL
-    url: graphql/volkswagen-graphql.md
 - aid: volkswagen:volkswagen-configuration-api
   name: Volkswagen Configuration API
   description: Configure vehicles — check buildability, recover, and resolve configurations.
@@ -80,8 +78,6 @@ apis:
     url: https://productdata.volkswagenag.com/tutorial.html
   - type: JSONSchema
     url: json-schema/volkswagen-vehicle-config-schema.json
-  - type: GraphQL
-    url: graphql/volkswagen-graphql.md
 - aid: volkswagen:volkswagen-information-api
   name: Volkswagen Information API
   description: Retrieve vehicle information — WLTP emissions, images, and order data.
@@ -98,8 +94,6 @@ apis:
     url: https://productdata.volkswagenag.com/tutorial.html
   - type: JSONSchema
     url: json-schema/volkswagen-vehicle-config-schema.json
-  - type: GraphQL
-    url: graphql/volkswagen-graphql.md
 common:
 - type: Website
   url: https://volkswagenag.com
