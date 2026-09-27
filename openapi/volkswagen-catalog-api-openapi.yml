@@ -120,36 +120,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    modelId:
-      name: modelId
-      in: path
-      required: true
-      description: Model UUID identifier.
-      schema:
-        type: string
-    typeId:
-      name: typeId
-      in: path
-      required: true
-      description: Vehicle type UUID identifier.
-      schema:
-        type: string
-    brandId:
-      name: brandId
-      in: path
-      required: true
-      description: Brand UUID identifier.
-      schema:
-        type: string
-    countryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
-      schema:
-        type: string
-        example: DE
   schemas:
     Option:
       type: object
@@ -172,15 +142,6 @@ components:
           description: Option category.
         price:
           $ref: '#/components/schemas/Price'
-    Brand:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Brand UUID.
-        name:
-          type: string
-          description: Brand name (e.g. Volkswagen, Audi, SEAT, Skoda, CUPRA).
     VehicleType:
       type: object
       properties:
@@ -192,13 +153,16 @@ components:
           description: Type name including engine and trim designation.
         basePrice:
           $ref: '#/components/schemas/Price'
-    TypeList:
+    Country:
       type: object
       properties:
-        types:
-          type: array
-          items:
-            $ref: '#/components/schemas/VehicleType'
+        code:
+          type: string
+          description: ISO 3166-2 country/market code.
+          example: DE
+        name:
+          type: string
+          description: Country display name.
     ModelList:
       type: object
       properties:
@@ -206,13 +170,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Model'
-    CountryList:
-      type: object
-      properties:
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Country'
     Price:
       type: object
       properties:
@@ -223,20 +180,20 @@ components:
           type: string
           description: ISO 4217 currency code.
           example: EUR
-    OptionList:
+    CountryList:
       type: object
       properties:
-        options:
+        countries:
           type: array
           items:
-            $ref: '#/components/schemas/Option'
-    BrandList:
+            $ref: '#/components/schemas/Country'
+    TypeList:
       type: object
       properties:
-        brands:
+        types:
           type: array
           items:
-            $ref: '#/components/schemas/Brand'
+            $ref: '#/components/schemas/VehicleType'
     Model:
       type: object
       properties:
@@ -249,16 +206,59 @@ components:
         year:
           type: integer
           description: Model year.
-    Country:
+    OptionList:
       type: object
       properties:
-        code:
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    Brand:
+      type: object
+      properties:
+        id:
           type: string
-          description: ISO 3166-2 country/market code.
-          example: DE
+          description: Brand UUID.
         name:
           type: string
-          description: Country display name.
+          description: Brand name (e.g. Volkswagen, Audi, SEAT, Skoda, CUPRA).
+    BrandList:
+      type: object
+      properties:
+        brands:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
+  parameters:
+    brandId:
+      name: brandId
+      in: path
+      required: true
+      description: Brand UUID identifier.
+      schema:
+        type: string
+    typeId:
+      name: typeId
+      in: path
+      required: true
+      description: Vehicle type UUID identifier.
+      schema:
+        type: string
+    modelId:
+      name: modelId
+      in: path
+      required: true
+      description: Model UUID identifier.
+      schema:
+        type: string
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
   responses:
     NotFound:
       description: Resource not found.
@@ -269,8 +269,8 @@ components:
             properties:
               error:
                 type: string
-    TooManyRequests:
-      description: Request rate limit exceeded.
+    Unauthorized:
+      description: Missing or invalid bearer token.
       content:
         application/json:
           schema:
@@ -278,8 +278,8 @@ components:
             properties:
               error:
                 type: string
-    Unauthorized:
-      description: Missing or invalid bearer token.
+    TooManyRequests:
+      description: Request rate limit exceeded.
       content:
         application/json:
           schema:

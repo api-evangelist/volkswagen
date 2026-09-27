@@ -147,6 +147,20 @@ components:
             type: string
         buildable:
           type: boolean
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
     ConfigurationOptions:
       type: object
       properties:
@@ -165,20 +179,6 @@ components:
           items:
             type: string
           description: Option UUIDs required given current selections.
-    ConfigurationRequest:
-      type: object
-      properties:
-        typeId:
-          type: string
-          description: Vehicle type UUID.
-        selectedOptions:
-          type: array
-          items:
-            type: string
-          description: UUIDs of currently selected configuration options.
-        configId:
-          type: string
-          description: Optional configuration session ID for continuing a saved configuration.
   parameters:
     countryCode:
       name: countryCode
@@ -189,8 +189,8 @@ components:
         type: string
         example: DE
   responses:
-    NotAcceptable:
-      description: Configuration has unresolvable conflicts (HTTP 406).
+    Unauthorized:
+      description: Missing or invalid bearer token.
       content:
         application/json:
           schema:
@@ -198,8 +198,8 @@ components:
             properties:
               error:
                 type: string
-    Unauthorized:
-      description: Missing or invalid bearer token.
+    NotAcceptable:
+      description: Configuration has unresolvable conflicts (HTTP 406).
       content:
         application/json:
           schema:

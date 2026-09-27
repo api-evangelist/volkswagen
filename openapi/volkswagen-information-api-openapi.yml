@@ -92,27 +92,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    OrderData:
-      type: object
-      properties:
-        configId:
-          type: string
-        typeId:
-          type: string
-        selectedOptions:
-          type: array
-          items:
-            type: string
-        totalPrice:
-          $ref: '#/components/schemas/Price'
-        standardEquipment:
-          type: array
-          items:
-            type: string
-          description: Names of standard equipment included.
-        technicalData:
-          type: object
-          description: Full technical specification data.
     WltpData:
       type: object
       properties:
@@ -135,29 +114,27 @@ components:
         energyEfficiencyClass:
           type: string
           description: EU energy efficiency label (A-G).
-    ImageData:
+    OrderData:
       type: object
       properties:
-        images:
+        configId:
+          type: string
+        typeId:
+          type: string
+        selectedOptions:
           type: array
           items:
-            type: object
-            properties:
-              url:
-                type: string
-                description: URL of the vehicle image.
-              view:
-                type: string
-                enum:
-                - exterior-front
-                - exterior-rear
-                - exterior-side
-                - interior
-                description: Camera viewpoint.
-              width:
-                type: integer
-              height:
-                type: integer
+            type: string
+        totalPrice:
+          $ref: '#/components/schemas/Price'
+        standardEquipment:
+          type: array
+          items:
+            type: string
+          description: Names of standard equipment included.
+        technicalData:
+          type: object
+          description: Full technical specification data.
     Price:
       type: object
       properties:
@@ -182,6 +159,29 @@ components:
         configId:
           type: string
           description: Optional configuration session ID for continuing a saved configuration.
+    ImageData:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: URL of the vehicle image.
+              view:
+                type: string
+                enum:
+                - exterior-front
+                - exterior-rear
+                - exterior-side
+                - interior
+                description: Camera viewpoint.
+              width:
+                type: integer
+              height:
+                type: integer
   parameters:
     countryCode:
       name: countryCode
