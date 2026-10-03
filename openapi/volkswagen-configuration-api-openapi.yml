@@ -117,7 +117,48 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
   schemas:
+    ConfigurationOptions:
+      type: object
+      properties:
+        available:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs currently selectable.
+        unavailable:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs not selectable with current selections.
+        required:
+          type: array
+          items:
+            type: string
+          description: Option UUIDs required given current selections.
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
     BuildabilityResult:
       type: object
       properties:
@@ -147,47 +188,6 @@ components:
             type: string
         buildable:
           type: boolean
-    ConfigurationRequest:
-      type: object
-      properties:
-        typeId:
-          type: string
-          description: Vehicle type UUID.
-        selectedOptions:
-          type: array
-          items:
-            type: string
-          description: UUIDs of currently selected configuration options.
-        configId:
-          type: string
-          description: Optional configuration session ID for continuing a saved configuration.
-    ConfigurationOptions:
-      type: object
-      properties:
-        available:
-          type: array
-          items:
-            type: string
-          description: Option UUIDs currently selectable.
-        unavailable:
-          type: array
-          items:
-            type: string
-          description: Option UUIDs not selectable with current selections.
-        required:
-          type: array
-          items:
-            type: string
-          description: Option UUIDs required given current selections.
-  parameters:
-    countryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
-      schema:
-        type: string
-        example: DE
   responses:
     Unauthorized:
       description: Missing or invalid bearer token.

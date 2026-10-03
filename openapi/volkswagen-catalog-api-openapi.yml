@@ -121,6 +121,41 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Country:
+      type: object
+      properties:
+        code:
+          type: string
+          description: ISO 3166-2 country/market code.
+          example: DE
+        name:
+          type: string
+          description: Country display name.
+    VehicleType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Vehicle type UUID.
+        name:
+          type: string
+          description: Type name including engine and trim designation.
+        basePrice:
+          $ref: '#/components/schemas/Price'
+    TypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleType'
+    BrandList:
+      type: object
+      properties:
+        brands:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
     Option:
       type: object
       properties:
@@ -142,44 +177,6 @@ components:
           description: Option category.
         price:
           $ref: '#/components/schemas/Price'
-    VehicleType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Vehicle type UUID.
-        name:
-          type: string
-          description: Type name including engine and trim designation.
-        basePrice:
-          $ref: '#/components/schemas/Price'
-    Country:
-      type: object
-      properties:
-        code:
-          type: string
-          description: ISO 3166-2 country/market code.
-          example: DE
-        name:
-          type: string
-          description: Country display name.
-    ModelList:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/Model'
-    Price:
-      type: object
-      properties:
-        amount:
-          type: number
-          description: Price amount.
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
     CountryList:
       type: object
       properties:
@@ -187,25 +184,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Country'
-    TypeList:
+    ModelList:
       type: object
       properties:
-        types:
+        models:
           type: array
           items:
-            $ref: '#/components/schemas/VehicleType'
-    Model:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Model UUID.
-        name:
-          type: string
-          description: Model name (e.g. Golf, Passat, Tiguan).
-        year:
-          type: integer
-          description: Model year.
+            $ref: '#/components/schemas/Model'
     OptionList:
       type: object
       properties:
@@ -222,33 +207,34 @@ components:
         name:
           type: string
           description: Brand name (e.g. Volkswagen, Audi, SEAT, Skoda, CUPRA).
-    BrandList:
+    Price:
       type: object
       properties:
-        brands:
-          type: array
-          items:
-            $ref: '#/components/schemas/Brand'
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    Model:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Model UUID.
+        name:
+          type: string
+          description: Model name (e.g. Golf, Passat, Tiguan).
+        year:
+          type: integer
+          description: Model year.
   parameters:
     brandId:
       name: brandId
       in: path
       required: true
       description: Brand UUID identifier.
-      schema:
-        type: string
-    typeId:
-      name: typeId
-      in: path
-      required: true
-      description: Vehicle type UUID identifier.
-      schema:
-        type: string
-    modelId:
-      name: modelId
-      in: path
-      required: true
-      description: Model UUID identifier.
       schema:
         type: string
     countryCode:
@@ -259,6 +245,20 @@ components:
       schema:
         type: string
         example: DE
+    modelId:
+      name: modelId
+      in: path
+      required: true
+      description: Model UUID identifier.
+      schema:
+        type: string
+    typeId:
+      name: typeId
+      in: path
+      required: true
+      description: Vehicle type UUID identifier.
+      schema:
+        type: string
   responses:
     NotFound:
       description: Resource not found.
@@ -269,8 +269,8 @@ components:
             properties:
               error:
                 type: string
-    Unauthorized:
-      description: Missing or invalid bearer token.
+    TooManyRequests:
+      description: Request rate limit exceeded.
       content:
         application/json:
           schema:
@@ -278,8 +278,8 @@ components:
             properties:
               error:
                 type: string
-    TooManyRequests:
-      description: Request rate limit exceeded.
+    Unauthorized:
+      description: Missing or invalid bearer token.
       content:
         application/json:
           schema:

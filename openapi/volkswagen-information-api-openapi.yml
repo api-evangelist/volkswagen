@@ -91,29 +91,30 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
   schemas:
-    WltpData:
+    ConfigurationRequest:
       type: object
       properties:
-        fuelConsumption:
-          type: object
-          properties:
-            combined:
-              type: number
-              description: Combined fuel consumption in l/100km.
-            urban:
-              type: number
-            extraUrban:
-              type: number
-        co2Emissions:
-          type: object
-          properties:
-            combined:
-              type: number
-              description: Combined CO2 emissions in g/km.
-        energyEfficiencyClass:
+        typeId:
           type: string
-          description: EU energy efficiency label (A-G).
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
     OrderData:
       type: object
       properties:
@@ -135,30 +136,6 @@ components:
         technicalData:
           type: object
           description: Full technical specification data.
-    Price:
-      type: object
-      properties:
-        amount:
-          type: number
-          description: Price amount.
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
-    ConfigurationRequest:
-      type: object
-      properties:
-        typeId:
-          type: string
-          description: Vehicle type UUID.
-        selectedOptions:
-          type: array
-          items:
-            type: string
-          description: UUIDs of currently selected configuration options.
-        configId:
-          type: string
-          description: Optional configuration session ID for continuing a saved configuration.
     ImageData:
       type: object
       properties:
@@ -182,15 +159,38 @@ components:
                 type: integer
               height:
                 type: integer
-  parameters:
-    countryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
-      schema:
-        type: string
-        example: DE
+    WltpData:
+      type: object
+      properties:
+        fuelConsumption:
+          type: object
+          properties:
+            combined:
+              type: number
+              description: Combined fuel consumption in l/100km.
+            urban:
+              type: number
+            extraUrban:
+              type: number
+        co2Emissions:
+          type: object
+          properties:
+            combined:
+              type: number
+              description: Combined CO2 emissions in g/km.
+        energyEfficiencyClass:
+          type: string
+          description: EU energy efficiency label (A-G).
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
   responses:
     Unauthorized:
       description: Missing or invalid bearer token.
