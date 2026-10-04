@@ -91,51 +91,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    countryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
-      schema:
-        type: string
-        example: DE
   schemas:
-    ConfigurationRequest:
-      type: object
-      properties:
-        typeId:
-          type: string
-          description: Vehicle type UUID.
-        selectedOptions:
-          type: array
-          items:
-            type: string
-          description: UUIDs of currently selected configuration options.
-        configId:
-          type: string
-          description: Optional configuration session ID for continuing a saved configuration.
-    OrderData:
-      type: object
-      properties:
-        configId:
-          type: string
-        typeId:
-          type: string
-        selectedOptions:
-          type: array
-          items:
-            type: string
-        totalPrice:
-          $ref: '#/components/schemas/Price'
-        standardEquipment:
-          type: array
-          items:
-            type: string
-          description: Names of standard equipment included.
-        technicalData:
-          type: object
-          description: Full technical specification data.
     ImageData:
       type: object
       properties:
@@ -159,6 +115,51 @@ components:
                 type: integer
               height:
                 type: integer
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
+    OrderData:
+      type: object
+      properties:
+        configId:
+          type: string
+        typeId:
+          type: string
+        selectedOptions:
+          type: array
+          items:
+            type: string
+        totalPrice:
+          $ref: '#/components/schemas/Price'
+        standardEquipment:
+          type: array
+          items:
+            type: string
+          description: Names of standard equipment included.
+        technicalData:
+          type: object
+          description: Full technical specification data.
     WltpData:
       type: object
       properties:
@@ -181,16 +182,15 @@ components:
         energyEfficiencyClass:
           type: string
           description: EU energy efficiency label (A-G).
-    Price:
-      type: object
-      properties:
-        amount:
-          type: number
-          description: Price amount.
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
   responses:
     Unauthorized:
       description: Missing or invalid bearer token.

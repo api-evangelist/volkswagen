@@ -117,16 +117,50 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    countryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
-      schema:
-        type: string
-        example: DE
   schemas:
+    ConfigurationResult:
+      type: object
+      properties:
+        configId:
+          type: string
+          description: Session ID for continuing this configuration.
+        typeId:
+          type: string
+        selectedOptions:
+          type: array
+          items:
+            type: string
+        buildable:
+          type: boolean
+    BuildabilityResult:
+      type: object
+      properties:
+        buildable:
+          type: boolean
+          description: Whether the configuration is buildable.
+        conflicts:
+          type: array
+          items:
+            type: object
+            properties:
+              optionId:
+                type: string
+              reason:
+                type: string
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
     ConfigurationOptions:
       type: object
       properties:
@@ -145,59 +179,7 @@ components:
           items:
             type: string
           description: Option UUIDs required given current selections.
-    ConfigurationRequest:
-      type: object
-      properties:
-        typeId:
-          type: string
-          description: Vehicle type UUID.
-        selectedOptions:
-          type: array
-          items:
-            type: string
-          description: UUIDs of currently selected configuration options.
-        configId:
-          type: string
-          description: Optional configuration session ID for continuing a saved configuration.
-    BuildabilityResult:
-      type: object
-      properties:
-        buildable:
-          type: boolean
-          description: Whether the configuration is buildable.
-        conflicts:
-          type: array
-          items:
-            type: object
-            properties:
-              optionId:
-                type: string
-              reason:
-                type: string
-    ConfigurationResult:
-      type: object
-      properties:
-        configId:
-          type: string
-          description: Session ID for continuing this configuration.
-        typeId:
-          type: string
-        selectedOptions:
-          type: array
-          items:
-            type: string
-        buildable:
-          type: boolean
   responses:
-    Unauthorized:
-      description: Missing or invalid bearer token.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
     NotAcceptable:
       description: Configuration has unresolvable conflicts (HTTP 406).
       content:
@@ -207,6 +189,24 @@ components:
             properties:
               error:
                 type: string
+    Unauthorized:
+      description: Missing or invalid bearer token.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
   securitySchemes:
     BearerAuth:
       type: http
