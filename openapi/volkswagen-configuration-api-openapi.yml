@@ -117,21 +117,16 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
   schemas:
-    ConfigurationResult:
-      type: object
-      properties:
-        configId:
-          type: string
-          description: Session ID for continuing this configuration.
-        typeId:
-          type: string
-        selectedOptions:
-          type: array
-          items:
-            type: string
-        buildable:
-          type: boolean
     BuildabilityResult:
       type: object
       properties:
@@ -147,6 +142,20 @@ components:
                 type: string
               reason:
                 type: string
+    ConfigurationResult:
+      type: object
+      properties:
+        configId:
+          type: string
+          description: Session ID for continuing this configuration.
+        typeId:
+          type: string
+        selectedOptions:
+          type: array
+          items:
+            type: string
+        buildable:
+          type: boolean
     ConfigurationRequest:
       type: object
       properties:
@@ -180,15 +189,6 @@ components:
             type: string
           description: Option UUIDs required given current selections.
   responses:
-    NotAcceptable:
-      description: Configuration has unresolvable conflicts (HTTP 406).
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
     Unauthorized:
       description: Missing or invalid bearer token.
       content:
@@ -198,15 +198,15 @@ components:
             properties:
               error:
                 type: string
-  parameters:
-    countryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
-      schema:
-        type: string
-        example: DE
+    NotAcceptable:
+      description: Configuration has unresolvable conflicts (HTTP 406).
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
   securitySchemes:
     BearerAuth:
       type: http

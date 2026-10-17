@@ -121,6 +121,48 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    OptionList:
+      type: object
+      properties:
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    ModelList:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'
+    VehicleType:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Vehicle type UUID.
+        name:
+          type: string
+          description: Type name including engine and trim designation.
+        basePrice:
+          $ref: '#/components/schemas/Price'
+    CountryList:
+      type: object
+      properties:
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Country'
+    Country:
+      type: object
+      properties:
+        code:
+          type: string
+          description: ISO 3166-2 country/market code.
+          example: DE
+        name:
+          type: string
+          description: Country display name.
     Brand:
       type: object
       properties:
@@ -130,6 +172,23 @@ components:
         name:
           type: string
           description: Brand name (e.g. Volkswagen, Audi, SEAT, Skoda, CUPRA).
+    TypeList:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleType'
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
     Option:
       type: object
       properties:
@@ -151,55 +210,6 @@ components:
           description: Option category.
         price:
           $ref: '#/components/schemas/Price'
-    VehicleType:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Vehicle type UUID.
-        name:
-          type: string
-          description: Type name including engine and trim designation.
-        basePrice:
-          $ref: '#/components/schemas/Price'
-    OptionList:
-      type: object
-      properties:
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/Option'
-    TypeList:
-      type: object
-      properties:
-        types:
-          type: array
-          items:
-            $ref: '#/components/schemas/VehicleType'
-    BrandList:
-      type: object
-      properties:
-        brands:
-          type: array
-          items:
-            $ref: '#/components/schemas/Brand'
-    ModelList:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/Model'
-    Price:
-      type: object
-      properties:
-        amount:
-          type: number
-          description: Price amount.
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
     Model:
       type: object
       properties:
@@ -212,53 +222,13 @@ components:
         year:
           type: integer
           description: Model year.
-    CountryList:
+    BrandList:
       type: object
       properties:
-        countries:
+        brands:
           type: array
           items:
-            $ref: '#/components/schemas/Country'
-    Country:
-      type: object
-      properties:
-        code:
-          type: string
-          description: ISO 3166-2 country/market code.
-          example: DE
-        name:
-          type: string
-          description: Country display name.
-  parameters:
-    brandId:
-      name: brandId
-      in: path
-      required: true
-      description: Brand UUID identifier.
-      schema:
-        type: string
-    countryCode:
-      name: countryCode
-      in: path
-      required: true
-      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
-      schema:
-        type: string
-        example: DE
-    modelId:
-      name: modelId
-      in: path
-      required: true
-      description: Model UUID identifier.
-      schema:
-        type: string
-    typeId:
-      name: typeId
-      in: path
-      required: true
-      description: Vehicle type UUID identifier.
-      schema:
-        type: string
+            $ref: '#/components/schemas/Brand'
   responses:
     NotFound:
       description: Resource not found.
@@ -287,6 +257,36 @@ components:
             properties:
               error:
                 type: string
+  parameters:
+    countryCode:
+      name: countryCode
+      in: path
+      required: true
+      description: ISO 3166-2 market identifier (e.g. DE, AT, GB, US).
+      schema:
+        type: string
+        example: DE
+    modelId:
+      name: modelId
+      in: path
+      required: true
+      description: Model UUID identifier.
+      schema:
+        type: string
+    brandId:
+      name: brandId
+      in: path
+      required: true
+      description: Brand UUID identifier.
+      schema:
+        type: string
+    typeId:
+      name: typeId
+      in: path
+      required: true
+      description: Vehicle type UUID identifier.
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

@@ -92,53 +92,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ImageData:
-      type: object
-      properties:
-        images:
-          type: array
-          items:
-            type: object
-            properties:
-              url:
-                type: string
-                description: URL of the vehicle image.
-              view:
-                type: string
-                enum:
-                - exterior-front
-                - exterior-rear
-                - exterior-side
-                - interior
-                description: Camera viewpoint.
-              width:
-                type: integer
-              height:
-                type: integer
-    ConfigurationRequest:
-      type: object
-      properties:
-        typeId:
-          type: string
-          description: Vehicle type UUID.
-        selectedOptions:
-          type: array
-          items:
-            type: string
-          description: UUIDs of currently selected configuration options.
-        configId:
-          type: string
-          description: Optional configuration session ID for continuing a saved configuration.
-    Price:
-      type: object
-      properties:
-        amount:
-          type: number
-          description: Price amount.
-        currency:
-          type: string
-          description: ISO 4217 currency code.
-          example: EUR
     OrderData:
       type: object
       properties:
@@ -182,6 +135,53 @@ components:
         energyEfficiencyClass:
           type: string
           description: EU energy efficiency label (A-G).
+    ConfigurationRequest:
+      type: object
+      properties:
+        typeId:
+          type: string
+          description: Vehicle type UUID.
+        selectedOptions:
+          type: array
+          items:
+            type: string
+          description: UUIDs of currently selected configuration options.
+        configId:
+          type: string
+          description: Optional configuration session ID for continuing a saved configuration.
+    ImageData:
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: URL of the vehicle image.
+              view:
+                type: string
+                enum:
+                - exterior-front
+                - exterior-rear
+                - exterior-side
+                - interior
+                description: Camera viewpoint.
+              width:
+                type: integer
+              height:
+                type: integer
+    Price:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: EUR
   parameters:
     countryCode:
       name: countryCode
