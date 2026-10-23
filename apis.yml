@@ -95,6 +95,8 @@ apis:
   - type: JSONSchema
     url: json-schema/volkswagen-vehicle-config-schema.json
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/volkswagen/overview
 - type: Plans
   url: plans/volkswagen-plans-pricing.yml
 - type: RateLimits
