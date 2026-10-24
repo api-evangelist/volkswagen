@@ -1,1111 +1,1100 @@
 {
+  "info": {
+    "_postman_id": "01874f02-a2d6-4bc3-b5d5-bc53d85c327e",
+    "name": "Volkswagen OKAPI - Open Konfigurator Catalog API",
+    "description": "The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.\n\nContact Support:\n Name: Volkswagen OKAPI Developer Portal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:16:23.000Z",
+    "updatedAt": "2026-10-21T20:16:23.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-01874f02-a2d6-4bc3-b5d5-bc53d85c327e"
+  },
   "item": [
     {
-      "id": "aa54736a-1b0c-4387-b0b7-53067f4c970e",
-      "name": "Catalog",
-      "description": {
-        "content": "Browse vehicle catalog — countries, brands, models, types, and options.",
-        "type": "text/plain"
-      },
+      "name": "countries",
       "item": [
         {
-          "id": "2b800580-0b50-42f4-820b-58022f5ca00c",
           "name": "List Available Countries",
+          "id": "032bc337-0c33-493b-ad30-77bedd3af8fb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List Available Countries",
-            "description": {
-              "content": "Returns all countries for which OKAPI offers vehicle configuration support. Each country has an ISO 3166-2 market identifier used in subsequent catalog calls.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "countries"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/countries",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "countries"
+              ]
+            },
+            "description": "Returns all countries for which OKAPI offers vehicle configuration support. Each country has an ISO 3166-2 market identifier used in subsequent catalog calls."
           },
           "response": [
             {
-              "id": "54b68e1a-cd32-499c-b14e-ca208dce8894",
+              "id": "d021044e-a741-4e7a-ac7a-5de28aa4c032",
               "name": "List of supported countries with their market identifiers.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "countries"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/countries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "countries"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"countries\": [\n    {\n      \"code\": \"DE\",\n      \"name\": \"string\"\n    },\n    {\n      \"code\": \"DE\",\n      \"name\": \"string\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"countries\": [\n    {\n      \"code\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:16:23.000Z",
+              "updatedAt": "2026-10-21T20:16:23.000Z",
+              "uid": "35240-d021044e-a741-4e7a-ac7a-5de28aa4c032"
             },
             {
-              "id": "e6882888-d9ec-4293-adb0-4fcca3f2ec1e",
+              "id": "fff82de9-5a9c-4a0f-b934-140b7583ed03",
               "name": "Missing or invalid bearer token.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "countries"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/countries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "countries"
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:16:23.000Z",
+              "updatedAt": "2026-10-21T20:16:23.000Z",
+              "uid": "35240-fff82de9-5a9c-4a0f-b934-140b7583ed03"
             },
             {
-              "id": "8570273a-f7be-4ff6-9078-85186b799af7",
+              "id": "800f6b79-07f6-41ab-8267-90a8ce9fb90b",
               "name": "Request rate limit exceeded.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "countries"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/countries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "countries"
+                  ]
+                }
               },
               "status": "Too Many Requests",
               "code": 429,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:16:23.000Z",
+              "updatedAt": "2026-10-21T20:16:23.000Z",
+              "uid": "35240-800f6b79-07f6-41ab-8267-90a8ce9fb90b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "82dd8006-934c-4375-bcf0-417785425c46",
-          "name": "List Brands By Country",
-          "request": {
-            "name": "List Brands By Country",
-            "description": {
-              "content": "Returns all VW Group brands available in the specified country market.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "catalog",
-                ":countryCode",
-                "brands"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "f5cf8120-4f8b-4407-abc8-aa3ca8edc760",
-              "name": "List of brands available in the country.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "brands"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"brands\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "87b23826-81aa-487b-a3d3-18ef4f6fb2cf",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "brands"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3b216e5a-d1f6-4837-a628-438a9a2fd078",
-              "name": "Resource not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "brands"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c478e766-4359-435e-9678-ed34d3b719d0",
-          "name": "List Models By Brand",
-          "request": {
-            "name": "List Models By Brand",
-            "description": {
-              "content": "Returns all vehicle models available for a specific brand in a country.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "catalog",
-                ":countryCode",
-                "brands",
-                ":brandId",
-                "models"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "brandId",
-                  "description": "(Required) Brand UUID identifier."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "4d495882-2b52-4ba1-9ec0-3a9b26fcf583",
-              "name": "List of models for the brand in the country.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "brands",
-                    ":brandId",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "brandId",
-                      "description": "(Required) Brand UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"models\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"year\": 7461\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"year\": 938\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8d5ad512-bb40-4d68-ba5d-c8282e797248",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "brands",
-                    ":brandId",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "brandId",
-                      "description": "(Required) Brand UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f57a7371-11a4-4185-9cfb-eb11ea99385a",
-              "name": "Resource not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "brands",
-                    ":brandId",
-                    "models"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "brandId",
-                      "description": "(Required) Brand UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a70187f5-01dc-4f9e-8b2e-dc5815f4eb32",
-          "name": "List Types By Model",
-          "request": {
-            "name": "List Types By Model",
-            "description": {
-              "content": "Returns all vehicle types (trim levels, engine variants) for a specific model.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "catalog",
-                ":countryCode",
-                "models",
-                ":modelId",
-                "types"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "modelId",
-                  "description": "(Required) Model UUID identifier."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "45a148d0-1194-47f4-bfb3-0e66f169f7cf",
-              "name": "List of vehicle types for the model.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "models",
-                    ":modelId",
-                    "types"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "modelId",
-                      "description": "(Required) Model UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"types\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"basePrice\": {\n        \"amount\": 9653.830903859262,\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"basePrice\": {\n        \"amount\": 7172.161501114717,\n        \"currency\": \"EUR\"\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "74fc72f1-3be8-4be8-8a9e-31eba44f68c4",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "models",
-                    ":modelId",
-                    "types"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "modelId",
-                      "description": "(Required) Model UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2057b28b-39b7-4955-b916-d2064cb78253",
-              "name": "Resource not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "models",
-                    ":modelId",
-                    "types"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "modelId",
-                      "description": "(Required) Model UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c1898da8-73f0-41cd-9015-65187795c997",
-          "name": "List Options By Type",
-          "request": {
-            "name": "List Options By Type",
-            "description": {
-              "content": "Returns all configurable options for a vehicle type, including exterior colors, interior colors, wheels, radio, packages, and service guarantees.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "catalog",
-                ":countryCode",
-                "types",
-                ":typeId",
-                "options"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "typeId",
-                  "description": "(Required) Vehicle type UUID identifier."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "55d1cf10-376f-47c5-9d7a-a2e9f1370542",
-              "name": "Available options for the vehicle type.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "types",
-                    ":typeId",
-                    "options"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "typeId",
-                      "description": "(Required) Vehicle type UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"options\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"category\": \"packages\",\n      \"price\": {\n        \"amount\": 2767.9709062191782,\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"category\": \"wheels\",\n      \"price\": {\n        \"amount\": 5530.910492130037,\n        \"currency\": \"EUR\"\n      }\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "87623366-6716-4616-a23a-dcba046215c4",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "types",
-                    ":typeId",
-                    "options"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "typeId",
-                      "description": "(Required) Vehicle type UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5498ae38-7fc9-41af-8bdc-5623794f240d",
-              "name": "Resource not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "catalog",
-                    ":countryCode",
-                    "types",
-                    ":typeId",
-                    "options"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "typeId",
-                      "description": "(Required) Vehicle type UUID identifier."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:16:23.000Z",
+          "updatedAt": "2026-10-21T20:16:23.000Z",
+          "uid": "35240-032bc337-0c33-493b-ad30-77bedd3af8fb"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
+      "id": "44361376-8796-4fdc-85b0-6669e80fa89f",
+      "createdAt": "2026-10-21T20:16:23.000Z",
+      "updatedAt": "2026-10-21T20:16:23.000Z",
+      "uid": "35240-44361376-8796-4fdc-85b0-6669e80fa89f"
+    },
     {
-      "type": "string",
-      "value": "https://productdata.volkswagenag.com/v3",
-      "key": "baseUrl"
+      "name": "catalog",
+      "item": [
+        {
+          "name": "{countryCode}",
+          "item": [
+            {
+              "name": "brands",
+              "item": [
+                {
+                  "name": "{brandId}",
+                  "item": [
+                    {
+                      "name": "models",
+                      "item": [
+                        {
+                          "name": "List Models By Brand",
+                          "id": "9aea8418-d187-4564-a0e2-a5bc8d671df9",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/catalog/:countryCode/brands/:brandId/models",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "catalog",
+                                ":countryCode",
+                                "brands",
+                                ":brandId",
+                                "models"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9fdfb91e-8f7b-451c-83a0-9d546ce6020c",
+                                  "key": "countryCode",
+                                  "value": "<string>",
+                                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                                },
+                                {
+                                  "id": "f8860e31-bbcb-45d4-b7ae-f083da123548",
+                                  "key": "brandId",
+                                  "value": "<string>",
+                                  "description": "(Required) Brand UUID identifier."
+                                }
+                              ]
+                            },
+                            "description": "Returns all vehicle models available for a specific brand in a country."
+                          },
+                          "response": [
+                            {
+                              "id": "e286a20c-b32a-44da-9f9a-668dfa1892f7",
+                              "name": "List of models for the brand in the country.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/brands/:brandId/models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "brands",
+                                    ":brandId",
+                                    "models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "brandId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"models\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"year\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"year\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-e286a20c-b32a-44da-9f9a-668dfa1892f7"
+                            },
+                            {
+                              "id": "f8be0633-ea9c-4cb5-adae-439d0c5d5c93",
+                              "name": "Missing or invalid bearer token.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/brands/:brandId/models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "brands",
+                                    ":brandId",
+                                    "models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "brandId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-f8be0633-ea9c-4cb5-adae-439d0c5d5c93"
+                            },
+                            {
+                              "id": "c1ead157-1771-4d1c-b91f-ba9df319e85b",
+                              "name": "Resource not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/brands/:brandId/models",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "brands",
+                                    ":brandId",
+                                    "models"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "brandId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-c1ead157-1771-4d1c-b91f-ba9df319e85b"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:16:23.000Z",
+                          "updatedAt": "2026-10-21T20:16:23.000Z",
+                          "uid": "35240-9aea8418-d187-4564-a0e2-a5bc8d671df9"
+                        }
+                      ],
+                      "id": "cdce4b46-817d-4786-84f2-43bcd5f6a847",
+                      "createdAt": "2026-10-21T20:16:23.000Z",
+                      "updatedAt": "2026-10-21T20:16:23.000Z",
+                      "uid": "35240-cdce4b46-817d-4786-84f2-43bcd5f6a847"
+                    }
+                  ],
+                  "id": "5b5228ad-9439-472c-bcc4-4ded3cf09070",
+                  "createdAt": "2026-10-21T20:16:23.000Z",
+                  "updatedAt": "2026-10-21T20:16:23.000Z",
+                  "uid": "35240-5b5228ad-9439-472c-bcc4-4ded3cf09070"
+                },
+                {
+                  "name": "List Brands By Country",
+                  "id": "8f550350-d2cd-4a69-852e-a6e820d9c25c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/catalog/:countryCode/brands",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "catalog",
+                        ":countryCode",
+                        "brands"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c50faa00-4443-48ca-8285-3e7151108918",
+                          "key": "countryCode",
+                          "value": "<string>",
+                          "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                        }
+                      ]
+                    },
+                    "description": "Returns all VW Group brands available in the specified country market."
+                  },
+                  "response": [
+                    {
+                      "id": "7c242d00-a799-4e3d-994e-723397350242",
+                      "name": "List of brands available in the country.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/catalog/:countryCode/brands",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "catalog",
+                            ":countryCode",
+                            "brands"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"brands\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:16:23.000Z",
+                      "updatedAt": "2026-10-21T20:16:23.000Z",
+                      "uid": "35240-7c242d00-a799-4e3d-994e-723397350242"
+                    },
+                    {
+                      "id": "6101db89-9aaf-4bdc-9b99-53632826b6f1",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/catalog/:countryCode/brands",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "catalog",
+                            ":countryCode",
+                            "brands"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:16:23.000Z",
+                      "updatedAt": "2026-10-21T20:16:23.000Z",
+                      "uid": "35240-6101db89-9aaf-4bdc-9b99-53632826b6f1"
+                    },
+                    {
+                      "id": "80598984-80a7-4616-9efc-3ea442fde2f6",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/catalog/:countryCode/brands",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "catalog",
+                            ":countryCode",
+                            "brands"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:16:23.000Z",
+                      "updatedAt": "2026-10-21T20:16:23.000Z",
+                      "uid": "35240-80598984-80a7-4616-9efc-3ea442fde2f6"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:16:23.000Z",
+                  "updatedAt": "2026-10-21T20:16:23.000Z",
+                  "uid": "35240-8f550350-d2cd-4a69-852e-a6e820d9c25c"
+                }
+              ],
+              "id": "a2b290b1-fba9-4ff9-b9e0-4a8c36e31a0b",
+              "createdAt": "2026-10-21T20:16:23.000Z",
+              "updatedAt": "2026-10-21T20:16:23.000Z",
+              "uid": "35240-a2b290b1-fba9-4ff9-b9e0-4a8c36e31a0b"
+            },
+            {
+              "name": "models",
+              "item": [
+                {
+                  "name": "{modelId}",
+                  "item": [
+                    {
+                      "name": "types",
+                      "item": [
+                        {
+                          "name": "List Types By Model",
+                          "id": "06477522-5d19-4881-8180-53315949b1a8",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/catalog/:countryCode/models/:modelId/types",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "catalog",
+                                ":countryCode",
+                                "models",
+                                ":modelId",
+                                "types"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4a8f2d02-b51b-4ad0-9e86-875ffc6f5603",
+                                  "key": "countryCode",
+                                  "value": "<string>",
+                                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                                },
+                                {
+                                  "id": "c77c9971-c0ac-45a4-a05a-22126d2273ea",
+                                  "key": "modelId",
+                                  "value": "<string>",
+                                  "description": "(Required) Model UUID identifier."
+                                }
+                              ]
+                            },
+                            "description": "Returns all vehicle types (trim levels, engine variants) for a specific model."
+                          },
+                          "response": [
+                            {
+                              "id": "885c0cdf-a7d0-4983-957a-4b9b4f1de4a1",
+                              "name": "List of vehicle types for the model.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/models/:modelId/types",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "models",
+                                    ":modelId",
+                                    "types"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "modelId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"types\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"basePrice\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"basePrice\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ]\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-885c0cdf-a7d0-4983-957a-4b9b4f1de4a1"
+                            },
+                            {
+                              "id": "2f8fd802-ab6d-4dde-86cb-945559c2061a",
+                              "name": "Missing or invalid bearer token.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/models/:modelId/types",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "models",
+                                    ":modelId",
+                                    "types"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "modelId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-2f8fd802-ab6d-4dde-86cb-945559c2061a"
+                            },
+                            {
+                              "id": "8115406f-9ff6-4b3a-ae0c-ce3cb7a12f07",
+                              "name": "Resource not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/models/:modelId/types",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "models",
+                                    ":modelId",
+                                    "types"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "modelId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-8115406f-9ff6-4b3a-ae0c-ce3cb7a12f07"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:16:23.000Z",
+                          "updatedAt": "2026-10-21T20:16:23.000Z",
+                          "uid": "35240-06477522-5d19-4881-8180-53315949b1a8"
+                        }
+                      ],
+                      "id": "5bf14c30-0fc5-46f1-bb9b-2f3e1e168b9a",
+                      "createdAt": "2026-10-21T20:16:23.000Z",
+                      "updatedAt": "2026-10-21T20:16:23.000Z",
+                      "uid": "35240-5bf14c30-0fc5-46f1-bb9b-2f3e1e168b9a"
+                    }
+                  ],
+                  "id": "be45fae6-0ef4-4b1e-843c-298339d671bc",
+                  "createdAt": "2026-10-21T20:16:23.000Z",
+                  "updatedAt": "2026-10-21T20:16:23.000Z",
+                  "uid": "35240-be45fae6-0ef4-4b1e-843c-298339d671bc"
+                }
+              ],
+              "id": "28ffd16f-2d6e-4852-bb18-1d7ffddd7e3a",
+              "createdAt": "2026-10-21T20:16:23.000Z",
+              "updatedAt": "2026-10-21T20:16:23.000Z",
+              "uid": "35240-28ffd16f-2d6e-4852-bb18-1d7ffddd7e3a"
+            },
+            {
+              "name": "types",
+              "item": [
+                {
+                  "name": "{typeId}",
+                  "item": [
+                    {
+                      "name": "options",
+                      "item": [
+                        {
+                          "name": "List Options By Type",
+                          "id": "22a390a3-5e07-4f2f-b151-0932b09cd375",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/catalog/:countryCode/types/:typeId/options",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "catalog",
+                                ":countryCode",
+                                "types",
+                                ":typeId",
+                                "options"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0dc35e7e-8a41-4e12-a6bc-e921ae336e65",
+                                  "key": "countryCode",
+                                  "value": "<string>",
+                                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                                },
+                                {
+                                  "id": "e4be3017-7e26-42f0-aade-5be589dfa151",
+                                  "key": "typeId",
+                                  "value": "<string>",
+                                  "description": "(Required) Vehicle type UUID identifier."
+                                }
+                              ]
+                            },
+                            "description": "Returns all configurable options for a vehicle type, including exterior colors, interior colors, wheels, radio, packages, and service guarantees."
+                          },
+                          "response": [
+                            {
+                              "id": "ee1290f4-7ac1-4771-bb66-3652b806c627",
+                              "name": "Available options for the vehicle type.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/types/:typeId/options",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "types",
+                                    ":typeId",
+                                    "options"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "typeId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"options\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"category\": \"packages\",\n      \"price\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"category\": \"service\",\n      \"price\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ]\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-ee1290f4-7ac1-4771-bb66-3652b806c627"
+                            },
+                            {
+                              "id": "01e84994-d2cb-459b-9f58-03df7805abf6",
+                              "name": "Missing or invalid bearer token.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/types/:typeId/options",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "types",
+                                    ":typeId",
+                                    "options"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "typeId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-01e84994-d2cb-459b-9f58-03df7805abf6"
+                            },
+                            {
+                              "id": "5162d869-9a41-418a-9bb3-f3de3436bb8a",
+                              "name": "Resource not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/catalog/:countryCode/types/:typeId/options",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "catalog",
+                                    ":countryCode",
+                                    "types",
+                                    ":typeId",
+                                    "options"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "countryCode"
+                                    },
+                                    {
+                                      "key": "typeId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:16:23.000Z",
+                              "updatedAt": "2026-10-21T20:16:23.000Z",
+                              "uid": "35240-5162d869-9a41-418a-9bb3-f3de3436bb8a"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:16:23.000Z",
+                          "updatedAt": "2026-10-21T20:16:23.000Z",
+                          "uid": "35240-22a390a3-5e07-4f2f-b151-0932b09cd375"
+                        }
+                      ],
+                      "id": "8c32311d-ddc1-4b9d-a634-4dee76c3ee19",
+                      "createdAt": "2026-10-21T20:16:23.000Z",
+                      "updatedAt": "2026-10-21T20:16:23.000Z",
+                      "uid": "35240-8c32311d-ddc1-4b9d-a634-4dee76c3ee19"
+                    }
+                  ],
+                  "id": "70b6e3fe-9042-4e7c-a6c9-e094d918be66",
+                  "createdAt": "2026-10-21T20:16:23.000Z",
+                  "updatedAt": "2026-10-21T20:16:23.000Z",
+                  "uid": "35240-70b6e3fe-9042-4e7c-a6c9-e094d918be66"
+                }
+              ],
+              "id": "ddc75282-3c41-4038-82a7-0a396f2586e3",
+              "createdAt": "2026-10-21T20:16:23.000Z",
+              "updatedAt": "2026-10-21T20:16:23.000Z",
+              "uid": "35240-ddc75282-3c41-4038-82a7-0a396f2586e3"
+            }
+          ],
+          "id": "4fcb414c-8d4b-48bb-8b7e-62481b6ea613",
+          "createdAt": "2026-10-21T20:16:23.000Z",
+          "updatedAt": "2026-10-21T20:16:23.000Z",
+          "uid": "35240-4fcb414c-8d4b-48bb-8b7e-62481b6ea613"
+        }
+      ],
+      "id": "fb12a6d1-d70e-4ee3-a962-785a30f90eda",
+      "createdAt": "2026-10-21T20:16:23.000Z",
+      "updatedAt": "2026-10-21T20:16:23.000Z",
+      "uid": "35240-fb12a6d1-d70e-4ee3-a962-785a30f90eda"
     }
   ],
   "auth": {
@@ -1113,17 +1102,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "4315b9fb-9996-4e01-b2bd-ab12f7094ee3",
-    "name": "Volkswagen OKAPI - Open Konfigurator Catalog API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.\n\nContact Support:\n Name: Volkswagen OKAPI Developer Portal",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://productdata.volkswagenag.com/v3"
     }
-  }
+  ]
 }

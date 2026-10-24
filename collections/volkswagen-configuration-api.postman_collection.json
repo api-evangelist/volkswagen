@@ -1,804 +1,855 @@
 {
+  "info": {
+    "_postman_id": "918bf30e-4361-4ea2-a90f-652252c80215",
+    "name": "Volkswagen OKAPI - Open Konfigurator Configuration API",
+    "description": "The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.\n\nContact Support:\n Name: Volkswagen OKAPI Developer Portal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:16:27.000Z",
+    "updatedAt": "2026-10-21T20:16:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-918bf30e-4361-4ea2-a90f-652252c80215"
+  },
   "item": [
     {
-      "id": "326fcf15-7a19-46a8-83a6-5ada79fa1f68",
-      "name": "Configuration",
-      "description": {
-        "content": "Configure vehicles — check buildability, recover, and resolve configurations.",
-        "type": "text/plain"
-      },
+      "name": "operation",
       "item": [
         {
-          "id": "da5d60e9-9d2c-4444-b56c-31f484454cf9",
-          "name": "Check Configuration Buildability",
-          "request": {
-            "name": "Check Configuration Buildability",
-            "description": {
-              "content": "Validates whether a given set of selected options forms a buildable vehicle configuration. Returns conflict information if options are incompatible.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "operation",
-                ":countryCode",
-                "check"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "{countryCode}",
+          "item": [
             {
-              "id": "d490fc54-1f3f-44d2-9b8b-a83325b4971d",
-              "name": "Buildability check result.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "check"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "check",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Check Configuration Buildability",
+                  "id": "4a0a02ce-4f3a-4399-86f3-c2b29a944077",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operation/:countryCode/check",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operation",
+                        ":countryCode",
+                        "check"
+                      ],
+                      "variable": [
+                        {
+                          "id": "fa3abb29-ce42-44a0-b642-c0479dd66fe1",
+                          "key": "countryCode",
+                          "value": "<string>",
+                          "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                        }
+                      ]
+                    },
+                    "description": "Validates whether a given set of selected options forms a buildable vehicle configuration. Returns conflict information if options are incompatible."
+                  },
+                  "response": [
+                    {
+                      "id": "1c1b6db5-a804-47b2-8cf6-e3a1294a6100",
+                      "name": "Buildability check result.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/check",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "check"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"buildable\": \"<boolean>\",\n  \"conflicts\": [\n    {\n      \"optionId\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"optionId\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-1c1b6db5-a804-47b2-8cf6-e3a1294a6100"
+                    },
+                    {
+                      "id": "309a38d8-858e-4fa9-813b-39da30b519bf",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/check",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "check"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-309a38d8-858e-4fa9-813b-39da30b519bf"
+                    },
+                    {
+                      "id": "fce8df18-6b28-4ab0-a237-efc286c5234a",
+                      "name": "Configuration has unresolvable conflicts (HTTP 406).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/check",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "check"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Acceptable",
+                      "code": 406,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-fce8df18-6b28-4ab0-a237-efc286c5234a"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:16:28.000Z",
+                  "updatedAt": "2026-10-21T20:16:28.000Z",
+                  "uid": "35240-4a0a02ce-4f3a-4399-86f3-c2b29a944077"
                 }
               ],
-              "body": "{\n  \"buildable\": false,\n  \"conflicts\": [\n    {\n      \"optionId\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"optionId\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "867f591c-309c-4e1f-8f63-e34708c19e87",
+              "createdAt": "2026-10-21T20:16:28.000Z",
+              "updatedAt": "2026-10-21T20:16:28.000Z",
+              "uid": "35240-867f591c-309c-4e1f-8f63-e34708c19e87"
             },
             {
-              "id": "d0295f4e-2d85-47c0-95da-d0643e0d5d6a",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "check"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
+              "name": "recover",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Recover Buildable Configuration",
+                  "id": "c9fd3309-ae90-4c08-86f6-2bc849f8eb3c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operation/:countryCode/recover",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operation",
+                        ":countryCode",
+                        "recover"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5feea7e6-85fb-4b97-8333-76f4a52d2ae8",
+                          "key": "countryCode",
+                          "value": "<string>",
+                          "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                        }
+                      ]
+                    },
+                    "description": "Given an unbuildable configuration, returns the nearest valid buildable configuration by resolving conflicts between selected options."
+                  },
+                  "response": [
+                    {
+                      "id": "e89f188b-2d38-4050-adad-29d076ff7671",
+                      "name": "Recovered buildable configuration.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/recover",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "recover"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"configId\": \"<string>\",\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"buildable\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-e89f188b-2d38-4050-adad-29d076ff7671"
+                    },
+                    {
+                      "id": "75114cc0-8fbc-4c85-a192-9b3f8a6b3414",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/recover",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "recover"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-75114cc0-8fbc-4c85-a192-9b3f8a6b3414"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:16:28.000Z",
+                  "updatedAt": "2026-10-21T20:16:28.000Z",
+                  "uid": "35240-c9fd3309-ae90-4c08-86f6-2bc849f8eb3c"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "81e8fcdc-e38d-4046-9777-7e8ea4601af1",
+              "createdAt": "2026-10-21T20:16:28.000Z",
+              "updatedAt": "2026-10-21T20:16:28.000Z",
+              "uid": "35240-81e8fcdc-e38d-4046-9777-7e8ea4601af1"
             },
             {
-              "id": "c1cc3c80-e89c-4dde-87d5-70a1174b79b4",
-              "name": "Configuration has unresolvable conflicts (HTTP 406).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "check"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Acceptable",
-              "code": 406,
-              "header": [
+              "name": "configure",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Get Configuration Options",
+                  "id": "881d926c-4c70-47ef-bf19-25609c644223",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operation/:countryCode/configure",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operation",
+                        ":countryCode",
+                        "configure"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e95a72e3-9049-4a81-8089-97937934f6d9",
+                          "key": "countryCode",
+                          "value": "<string>",
+                          "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                        }
+                      ]
+                    },
+                    "description": "Returns available options and choices for the current vehicle configuration, showing which options are selectable, unavailable, or required given current selections."
+                  },
+                  "response": [
+                    {
+                      "id": "70b33356-a9d4-4e62-be1c-542f32550b89",
+                      "name": "Available configuration choices.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/configure",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "configure"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"available\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"unavailable\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"required\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-70b33356-a9d4-4e62-be1c-542f32550b89"
+                    },
+                    {
+                      "id": "49f54997-e26e-4d4b-a719-11abf9c90f41",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/configure",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "configure"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-49f54997-e26e-4d4b-a719-11abf9c90f41"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:16:28.000Z",
+                  "updatedAt": "2026-10-21T20:16:28.000Z",
+                  "uid": "35240-881d926c-4c70-47ef-bf19-25609c644223"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "83131d5e-ef50-4de1-adc6-39b915d999aa",
+              "createdAt": "2026-10-21T20:16:28.000Z",
+              "updatedAt": "2026-10-21T20:16:28.000Z",
+              "uid": "35240-83131d5e-ef50-4de1-adc6-39b915d999aa"
+            },
+            {
+              "name": "resolve",
+              "item": [
+                {
+                  "name": "Resolve Configuration",
+                  "id": "30bf3683-a5a8-4cbb-b924-75d70b71dfb1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/operation/:countryCode/resolve",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operation",
+                        ":countryCode",
+                        "resolve"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d29b611b-8fb5-4c58-bcd9-75befae4b88b",
+                          "key": "countryCode",
+                          "value": "<string>",
+                          "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
+                        }
+                      ]
+                    },
+                    "description": "Completes a partial configuration by resolving ambiguities and returning the fully distinct configuration with all options specified."
+                  },
+                  "response": [
+                    {
+                      "id": "8ffec7ef-e407-440e-8b4a-288fbc138175",
+                      "name": "Fully resolved configuration.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/resolve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "resolve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"configId\": \"<string>\",\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"buildable\": \"<boolean>\"\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-8ffec7ef-e407-440e-8b4a-288fbc138175"
+                    },
+                    {
+                      "id": "1728b405-c959-46d5-a2b5-e8ec244709e9",
+                      "name": "Missing or invalid bearer token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/operation/:countryCode/resolve",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operation",
+                            ":countryCode",
+                            "resolve"
+                          ],
+                          "variable": [
+                            {
+                              "key": "countryCode"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:16:28.000Z",
+                      "updatedAt": "2026-10-21T20:16:28.000Z",
+                      "uid": "35240-1728b405-c959-46d5-a2b5-e8ec244709e9"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:16:28.000Z",
+                  "updatedAt": "2026-10-21T20:16:28.000Z",
+                  "uid": "35240-30bf3683-a5a8-4cbb-b924-75d70b71dfb1"
+                }
+              ],
+              "id": "d0e17810-863f-4508-b856-b9150566c1d9",
+              "createdAt": "2026-10-21T20:16:28.000Z",
+              "updatedAt": "2026-10-21T20:16:28.000Z",
+              "uid": "35240-d0e17810-863f-4508-b856-b9150566c1d9"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "03be9248-ac8d-446e-8e79-f73836db3492",
-          "name": "Recover Buildable Configuration",
-          "request": {
-            "name": "Recover Buildable Configuration",
-            "description": {
-              "content": "Given an unbuildable configuration, returns the nearest valid buildable configuration by resolving conflicts between selected options.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "operation",
-                ":countryCode",
-                "recover"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "a65786d3-8bfb-4530-a30e-e568590055d4",
-              "name": "Recovered buildable configuration.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "recover"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"configId\": \"string\",\n  \"typeId\": \"string\",\n  \"selectedOptions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"buildable\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "07fd4809-9d42-4bf8-aed5-19e627690e19",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "recover"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "54e9a8bf-f6c0-4d57-b577-33f709f7908e",
-          "name": "Get Configuration Options",
-          "request": {
-            "name": "Get Configuration Options",
-            "description": {
-              "content": "Returns available options and choices for the current vehicle configuration, showing which options are selectable, unavailable, or required given current selections.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "operation",
-                ":countryCode",
-                "configure"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "aea6b739-5298-43aa-896d-f5031c1c280a",
-              "name": "Available configuration choices.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "configure"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"available\": [\n    \"string\",\n    \"string\"\n  ],\n  \"unavailable\": [\n    \"string\",\n    \"string\"\n  ],\n  \"required\": [\n    \"string\",\n    \"string\"\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ea192386-143b-49b6-bb2d-480b86758744",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "configure"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ab964246-7996-4d85-a9ab-23badda7970e",
-          "name": "Resolve Configuration",
-          "request": {
-            "name": "Resolve Configuration",
-            "description": {
-              "content": "Completes a partial configuration by resolving ambiguities and returning the fully distinct configuration with all options specified.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "operation",
-                ":countryCode",
-                "resolve"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "countryCode",
-                  "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "f19b5353-cac0-4600-9f97-54adf0c4b534",
-              "name": "Fully resolved configuration.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "resolve"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"configId\": \"string\",\n  \"typeId\": \"string\",\n  \"selectedOptions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"buildable\": true\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a398c3f4-94be-4a72-9819-1cc9cc8a1f05",
-              "name": "Missing or invalid bearer token.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operation",
-                    ":countryCode",
-                    "resolve"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "countryCode",
-                      "description": "(Required) ISO 3166-2 market identifier (e.g. DE, AT, GB, US)."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"typeId\": \"<string>\",\n  \"selectedOptions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"configId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6f85891a-947e-49f4-8274-7bb2be238d4a",
+          "createdAt": "2026-10-21T20:16:28.000Z",
+          "updatedAt": "2026-10-21T20:16:28.000Z",
+          "uid": "35240-6f85891a-947e-49f4-8274-7bb2be238d4a"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://productdata.volkswagenag.com/v3",
-      "key": "baseUrl"
+      "id": "74d9d013-01da-4cb0-8cd2-5da05df698ae",
+      "createdAt": "2026-10-21T20:16:28.000Z",
+      "updatedAt": "2026-10-21T20:16:28.000Z",
+      "uid": "35240-74d9d013-01da-4cb0-8cd2-5da05df698ae"
     }
   ],
   "auth": {
@@ -806,17 +857,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "01122914-95a0-4b67-8c5a-8836d8b43e14",
-    "name": "Volkswagen OKAPI - Open Konfigurator Catalog Configuration API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Volkswagen OKAPI (Open Konfigurator API) provides access to Volkswagen AG product data, enabling developers to browse vehicle catalogs, configure cars iteratively, validate buildability, retrieve WLTP emissions data, get configuration images, and obtain pricing and technical order information. Supports all VW Group brands across global markets.\n\nContact Support:\n Name: Volkswagen OKAPI Developer Portal",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://productdata.volkswagenag.com/v3"
     }
-  }
+  ]
 }
